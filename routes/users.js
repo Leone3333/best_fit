@@ -6,12 +6,14 @@ const UsuarioModel = require("../app/models/UsuarioModel");
 /* GET users listing. */
 router.get('/', async (req, res) => {
   
-  const usuarios = await UsuarioModel.getAll();
+  // const usuarios = await UsuarioModel.getAll();
   
-  console.log("--- RESULTADO DO GETALL ---");
-  console.table(usuarios);
+  const treinosUsusuario = await UsuarioModel.getAllTreinosUsuario(2)
 
-  res.json(usuarios);
+  console.log("--- RESULTADO DO GETALL ---");
+  console.table(treinosUsusuario);
+
+  res.json(treinosUsusuario);
 });
 
 module.exports = router;

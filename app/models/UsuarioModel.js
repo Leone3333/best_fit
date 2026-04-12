@@ -14,27 +14,27 @@ class UsuarioModel {
 
         const [rows] = await db.execute(sql, values);
         return rows.insertId;
-    }
+    };
 
     // Busca todos usuarios
     static async getAll() {
         const sql = "SELECT * FROM usuario"
 
-        const [result] = await db.execute(sql);
+        const [rows] = await db.execute(sql);
 
-        return result
-    }
+        return rows;
+    };
 
     // Deleta 1 usuario pelo id
     static async delet(idUsuario) {
         const sql = "DELETE FROM usuario WHERE idusuario = ?"
 
-        const value = idUsuario;
+        const value = [idUsuario];
 
         const [result] = await db.execute(sql, value);
 
-        return result
-    }
+        return result.affectedRows
+    };
 
     static async findUserEmail(email, senha) {
         const sql = "SELECT * FROM usuario WHERE email = ? and senha = ?"
@@ -42,10 +42,47 @@ class UsuarioModel {
         const values = [email, senha];
 
         const [rows] = await db.execute(sql, values);
-        return rows.length > 0 ? result[0]:null;
-    }
+        return rows;
+    };
 
-    // CRIAR MÉTODOS getAllFichasInfos e getAllTreinosUsuario
-}
+    // MÉTODO getAllFichasUsuario todas fichas do usuario
+
+    static async getAllFichasUsuario(idUsuario) {
+
+        const sql = "SELECT * FROM ficha WHERE idusuarioFk = ?";
+
+        const value = [idUsuario];
+
+        const [rows] = await db.execute(sql, value);
+
+        return rows;
+    };
+
+    // Todos os treinos do usaurio getAllTreinosUsuario
+
+    static async getAllTreinosUsuario(idUsuario) {
+        
+        const sql = `SELECT 
+            f.divisao AS ficha_nome,
+            e.nome AS exercicio_nome,
+            e.imagem,
+            t.idtreino,
+            t.serie,
+            t.carga,
+            t.repeticoes,
+            t.status as status_treino
+        FROM ficha f
+        INNER JOIN treino t ON t.idfichaFK = f.idficha
+        INNER JOIN exercicio e ON t.idexercicioFK = e.idexercicio
+        WHERE f.idusuarioFK = ?
+        ORDER BY f.divisao`;
+
+        const value = [idUsuario];
+
+        const [rows] = await db.execute(sql, value);
+
+        return rows;
+    };
+};
 
 module.exports = UsuarioModel;
