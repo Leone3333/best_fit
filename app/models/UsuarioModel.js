@@ -9,6 +9,7 @@ const db = require("../database/conection");
 class UsuarioModel {
     // CREATE - Onde sua TRIGGER de fichas será disparada no banco
     static async create(nome, email, senha) {
+        
         const sql = "INSERT INTO usuario (nome,email,senha) VALUES (?,?,?)";
         const values = [nome, email, senha]
 

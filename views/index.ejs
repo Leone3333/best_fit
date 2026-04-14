@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title>Login</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <% if (user==="erro" ){%>
+
+    <p>Usuario não encontrado</p>
+    <%} else { %>
+      <p>Olá <%= user.nome %> seja bem vindo</p>
+      <% } %>
+</body>
+
 </html>
