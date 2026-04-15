@@ -4,7 +4,7 @@ class LoginController {
 
     static async login(emailPost, senhaPost) {
         try {
-            let login = await UsuarioModel.findUserEmail(emailPost, senhaPost);
+            let login = await UsuarioRepositiry.findUserEmail(emailPost, senhaPost);
             console.log("Consulta realizada");
 
             let session = false;
