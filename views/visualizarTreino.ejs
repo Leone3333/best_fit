@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/visualizarTreino.css">
+    <title>BestFit - Treino Selecionado</title>
+</head>
+<body>
+
+    <header>
+        <h1>Treino selecionado</h1>
+    </header>
+
+    <main style="width: 100%; display: flex; flex-direction: column; align-items: center; flex: 1;">
+        
+        <div id="exercise-image" class="exercise-image-container">
+            <span>IMG: Elevação Lateral</span>
+        </div>
+
+        <section class="controls-section">
+            
+            <div class="control-item">
+                <span class="control-label">serie</span>
+                <div class="control-data">
+                    <button class="btn-adjust">-</button>
+                    <span id="serie-value">2</span>
+                    <button class="btn-adjust">+</button>
+                </div>
+            </div>
+
+            <div class="control-item">
+                <span class="control-label">Rep</span>
+                <div class="control-data">
+                    <div class="rep-selector">
+                        <input type="number" class="input-underline" placeholder="___">
+                        <span>IMG: v</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-item">
+                <span class="control-label">Carga</span>
+                <div class="control-data">
+                    <input type="number" class="input-underline" placeholder="_______">
+                </div>
+            </div>
+
+        </section>
+
+        <section class="actions-section">
+            <button class="btn-action btn-cancel">Cancelar</button>
+            <button class="btn-action btn-finish">Finalizar</button>
+        </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <div class="nav-circle-item" style="width: 45px; height: 45px; position: absolute; left: 20px;">
+            <span>IMG: < </span>
+        </div>
+
+        <div class="nav-circle-item" style="width: 65px; height: 65px; border: 4px solid var(--bg-dark); margin-top: -40px;">
+            <span>IMG: Home</span>
+        </div>
+    </nav>
+
+</body>
+</html>

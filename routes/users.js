@@ -1,25 +1,24 @@
 var express = require('express');
 var router = express.Router();
-// const UsuarioModel = require("../app/models/UsuarioModel");
+const UsuarioRepositiry = require("../app/repository/UsuarioRepository");
 const LoginController = require("../app/controllers/LoginController")
 
 /* GET users listing. */
 router.get('/', async (req, res) => {
   
   // const usuarios = await UsuarioModel.getAll();
-  const l = await LoginController.login("leone@teste.com","12345");
-  
 
-  // const treinosUsusuario = await UsuarioModel.getAllTreinosUsuario(2)
-  // const usuarioEmail = await UsuarioModel.findUserEmail("leone@teste.com","123456")
-  
-  
-  // console.table(treinosUsusuario);
-  // console.table(usuarioEmail);
+  let l = false;
+  try{
+    l = await LoginController.login("adm@gmail.com","adm123");
+  }catch(error){
+    console.log("Erro controller")
+  }
   console.log(l);
 
   // res.json(treinosUsusuario);
   // res.json(usuarioEmail);
+  
 
   if (l) {
     res.render('index', {user: l[0] })
@@ -27,6 +26,8 @@ router.get('/', async (req, res) => {
   } else {
     res.render('index', {user: "erro" })
   }
+
+
 });
 
 module.exports = router;

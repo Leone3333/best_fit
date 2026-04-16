@@ -1,4 +1,4 @@
-const UsuarioModel = require("../models/UsuarioModel");
+const UsuarioRepositiry = require("../repository/UsuarioRepository");
 
 class LoginController {
 
@@ -20,6 +20,7 @@ class LoginController {
             }
         } catch (error) {
             console.log("Erro na consulta");
+            console.log(error);
         };
 
     };

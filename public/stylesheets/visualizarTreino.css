@@ -1,0 +1,168 @@
+/* public/css/treino-detalhe.css */
+:root {
+    --bg-dark: #343a44;
+    --card-border-green: #48bb95;
+    --text-white: #ffffff;
+    --accent-green: #6ce49e;
+    --danger-red: #d9534f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 80px; /* Espaço para o menu inferior */
+}
+
+/* Header */
+header {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 1.5rem;
+}
+
+/* --- Container da Imagem do Exercício --- */
+.exercise-image-container {
+    width: 90%;
+    max-width: 350px;
+    aspect-ratio: 1 / 1; /* Mantém o formato quadrado da imagem */
+    border: 3px solid var(--card-border-green);
+    background-color: #ffffff; /* Fundo branco para a imagem */
+    border-radius: 8px; /* Cantos levemente arredondados */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    overflow: hidden; /* Garante que a imagem não saia da div */
+}
+
+/* Texto placeholder dentro da div de imagem */
+.exercise-image-container span {
+    color: #888;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* --- Área de Controles de Dados --- */
+.controls-section {
+    width: 90%;
+    max-width: 350px;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: auto; /* Empurra os botões de ação para baixo */
+    gap: 10px;
+}
+
+.control-item {
+    text-align: center;
+    flex: 1;
+}
+
+.control-label {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Inputs e Seletores */
+.control-data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.btn-adjust {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.input-underline {
+    border: none;
+    border-bottom: 2px solid white;
+    background: none;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+    width: 50px;
+}
+
+.rep-selector {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+}
+
+/* --- Botões de Ação --- */
+.actions-section {
+    width: 90%;
+    max-width: 350px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.btn-action {
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+.btn-cancel {
+    background-color: var(--danger-red);
+    color: white;
+}
+
+.btn-finish {
+    background-color: var(--accent-green);
+    color: white;
+}
+
+/* Footer (Padrão) */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 65px;
+    background-color: var(--card-border-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-circle-item {
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

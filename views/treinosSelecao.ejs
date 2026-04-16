@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/treinosSelecao.css">
+    <title>BestFit - Executando Treino</title>
+</head>
+<body>
+
+    <header class="header-execucao">
+        <h1>ficha selecionada</h1>
+        <div class="status-icon">
+            <span>IMG: Sair</span>
+        </div>
+    </header>
+
+    <div class="table-labels">
+        <div class="col-ex">Exercicio</div>
+        <div class="col-sm">serie</div>
+        <div class="col-sm">rep</div>
+        <div class="col-sm">Carga</div>
+        <div style="width: 35px;"></div>
+    </div>
+
+    <main>
+        <a href="/visualizarTreino">
+            <div class="exercise-card-run">
+                <div class="col-ex">Exercicio</div>
+                <div class="col-sm">serie</div>
+                <div class="col-sm">rep</div>
+                <div class="col-sm">Carga</div>
+                <div class="check-icon check-done">
+                    <span>IMG: Check Azul</span>
+                </div>
+            </div>
+        </a>
+
+        <div class="exercise-card-run">
+            <div class="col-ex">Exercicio</div>
+            <div class="col-sm">serie</div>
+            <div class="col-sm">rep</div>
+            <div class="col-sm">Carga</div>
+            <div class="check-icon check-done">
+                <span>IMG: Check Azul</span>
+            </div>
+        </div>
+
+        <div class="exercise-card-run">
+            <div class="col-ex">Exercicio</div>
+            <div class="col-sm">serie</div>
+            <div class="col-sm">rep</div>
+            <div class="col-sm">Carga</div>
+            <div class="check-icon check-waiting">
+                <span>IMG: Check Amarelo</span>
+            </div>
+        </div>
+
+        <button class="btn-finish-all">Finalizar todos</button>
+    </main>
+
+    <nav class="bottom-nav">
+        <div class="nav-circle-item" style="width: 45px; height: 45px; position: absolute; left: 20px;">
+            <span>IMG: < </span>
+        </div>
+
+        <div class="nav-circle-item" style="width: 65px; height: 65px; border: 4px solid var(--bg-dark); margin-top: -40px;">
+            <span>IMG: Home</span>
+        </div>
+    </nav>
+
+</body>
+</html>

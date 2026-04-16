@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/treinosEdicao.css">
+    <title>BestFit - Exercícios</title>
+</head>
+<body>
+
+    <header class="header-exercicios">
+        <h1>ficha selecionada</h1>
+        <div class="status-icon">
+            <span>IMG: Sair</span>
+        </div>
+    </header>
+
+    <div class="table-header">
+        <div class="col-ex">Exercicio</div>
+        <div class="col-sm">serie</div>
+        <div class="col-sm">rep</div>
+        <div class="col-sm">Carga</div>
+        <div style="width: 30px;"></div> </div>
+
+    <main>
+        <div class="exercise-card">
+            <div class="col-ex"><input type="text" value="Exercicio"></div>
+            <div class="col-sm"><input type="text" value="serie"></div>
+            <div class="col-sm"><input type="text" value="rep"></div>
+            <div class="col-sm"><input type="text" value="Carga"></div>
+            <button class="btn-delete"><span>IMG: Lixo</span></button>
+        </div>
+
+        <div class="exercise-card">
+            <div class="col-ex"><input type="text" value="Exercicio"></div>
+            <div class="col-sm"><input type="text" value="serie"></div>
+            <div class="col-sm"><input type="text" value="rep"></div>
+            <div class="col-sm"><input type="text" value="Carga"></div>
+            <button class="btn-delete"><span>IMG: Lixo</span></button>
+        </div>
+
+        <div class="exercise-card">
+            <div class="col-ex"><input type="text" placeholder="Exercicio ___"></div>
+            <div class="col-sm"><input type="text" placeholder="serie __"></div>
+            <div class="col-sm"><input type="text" placeholder="rep __"></div>
+            <div class="col-sm"><input type="text" placeholder="Carga __"></div>
+            <div style="width: 30px;"></div>
+        </div>
+    </main>
+
+    <button class="btn-add-float">+</button>
+
+    <nav class="bottom-nav">
+        <div class="nav-circle" style="width: 45px; height: 45px; position: absolute; left: 20px;">
+            <span>IMG: < </span>
+        </div>
+
+        <div class="nav-circle" style="width: 65px; height: 65px; border: 4px solid var(--bg-dark); margin-top: -40px;">
+            <span>IMG: Home</span>
+        </div>
+    </nav>
+
+</body>
+</html>

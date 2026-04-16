@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/home.css">
+    <title>BestFit - Dashboard</title>
+</head>
+<body>
+
+    <header class="dashboard-header">
+        <h1>Nome</h1>
+        <div class="logout-icon">
+            <span>Sair</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="welcome-section">
+            <h2>Bem vindo!</h2>
+        </section>
+
+        <section class="filter-group">
+            <select name="mes">
+                <option value="9">Sep</option>
+            </select>
+            <select name="ano">
+                <option value="2025">2025</option>
+            </select>
+        </section>
+
+        <section class="toneladas-card">
+            <h3>X Toneladas em setembro!!</h3>
+        </section>
+
+        <section class="charts-container">
+            <div id="chart-pizza" class="pizza-chart-placeholder">
+                </div>
+
+            <div id="chart-lines" class="lines-chart-placeholder">
+                <div class="bar-line" style="width: 100%;"></div>
+                <div class="bar-line" style="width: 80%;"></div>
+                <div class="bar-line" style="width: 45%;"></div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <div class="nav-wrapper">
+            <div class="home-btn-circle">
+                <div class="icon-label">
+                    <span>IMG: Home</span>
+                </div>
+            </div>
+
+            <div class="gym-btn-circle">
+                <div class="icon-label">
+                    <a href="/fichas"><span>IMG: Gym </span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+</body>
+</html>

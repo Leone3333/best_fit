@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Login</title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
-
 <body>
-  <% if (user==="erro" ){%>
-
-    <p>Usuario não encontrado</p>
-    <%} else { %>
-      <p>Olá <%= user.nome %> seja bem vindo</p>
-      <% } %>
+  <% if (user === "erro") { %>
+    <p>Usuário não encontrado</p>
+  <% } else { %>
+    <% user.forEach(function(ficha) { %>
+      <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+        <h3>Ficha ID: <%= ficha.idficha %></h3>
+        <p><strong>Divisão:</strong> <%= ficha.divisao %></p>
+        <p><strong>Status:</strong> <%= ficha.status_ficha %></p>
+      </div>
+    <% }); %>
+  <% } %>
 </body>
-
 </html>

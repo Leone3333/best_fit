@@ -1,0 +1,113 @@
+
+:root {
+    --bg-dark: #343a44;
+    --primary-gradient: linear-gradient(135deg, #6ce49e, #49b5c3);
+    --accent-green: #48bb95;
+    --text-white: #ffffff;
+    --danger-red: #d9534f;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'Segoe UI', sans-serif;
+    padding-bottom: 100px;
+}
+
+/* Header */
+.header-exercicios {
+    background: var(--primary-gradient);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Tabela de Cabeçalho */
+.table-header {
+    display: flex;
+    padding: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Grid de Colunas */
+.col-ex { flex: 2; text-align: left; }
+.col-sm { flex: 1; }
+
+/* Card de Exercício */
+.exercise-card {
+    background-color: #fff;
+    margin: 0 15px 15px 15px;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.exercise-card input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 2px;
+    color: var(--accent-green);
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.exercise-card .col-ex input {
+    text-align: left;
+}
+
+/* Ícone de Lixeira */
+.btn-delete {
+    color: var(--danger-red);
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Botão Flutuante de Adicionar (+) */
+.btn-add-float {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    background: var(--primary-gradient);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: none;
+}
+
+/* Bottom Nav (Mesmo padrão anterior) */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 65px;
+    background-color: var(--accent-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-circle {
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

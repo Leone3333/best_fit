@@ -1,0 +1,94 @@
+/* public/css/execucao.css */
+:root {
+    --bg-dark: #343a44;
+    --primary-gradient: linear-gradient(135deg, #6ce49e, #49b5c3);
+    --accent-green: #48bb95;
+    --btn-finish: #5097a4; /* Tom azulado do botão Finalizar */
+    --check-completed: #49b5c3;
+    --check-pending: #a8a332; /* Tom amarelado do último check */
+}
+
+/* Reutilizando a base das telas anteriores */
+body {
+    background-color: var(--bg-dark);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    padding-bottom: 110px;
+}
+
+.header-execucao {
+    background: var(--primary-gradient);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-labels {
+    display: flex;
+    padding: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.col-ex { flex: 2; text-align: left; }
+.col-sm { flex: 1; }
+
+/* Card de Exercício em Execução */
+.exercise-card-run {
+    background-color: #fff;
+    margin: 0 15px 12px 15px;
+    padding: 15px 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--accent-green);
+    font-weight: bold;
+}
+
+/* Estilo dos Checks */
+.check-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.check-done { color: var(--check-completed); }
+.check-waiting { color: var(--check-pending); }
+
+/* Botão Finalizar Todos */
+.btn-finish-all {
+    float: right;
+    margin: 20px 15px;
+    background-color: var(--btn-finish);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Footer (Padrão) */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 65px;
+    background-color: var(--accent-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-circle-item {
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

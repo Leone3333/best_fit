@@ -9,7 +9,7 @@ class UsuarioRepository {
     // CREATE - Onde sua TRIGGER de fichas será disparada no banco
     static async create(nome, email, senha) {
 
-        const novoUsuario = await models.create({
+        const novoUsuario = await models.usuario.create({
             nome: nome,
             email: email,
             senha: senha
@@ -20,7 +20,7 @@ class UsuarioRepository {
 
     // Busca todos usuarios
     static async getAll() {
-        const users = await models.usuario.findAll();
+        const users = await models.usuario.findAll({raw:true});
 
         return users;
     };
@@ -39,7 +39,8 @@ class UsuarioRepository {
             where: {
                 email: email,
                 senha: senha
-            }
+            },
+            raw:true
         });
 
         return user;
@@ -49,7 +50,7 @@ class UsuarioRepository {
 
     static async getAllFichasUsuario(idUsuario) {
 
-        const fichasUsuario = await models.ficha.findAll({ where: { idusuarioFK: idUsuario } });
+        const fichasUsuario = await models.ficha.findAll({ where: { idusuarioFK: idUsuario },raw:true });
 
         return fichasUsuario;
     };
@@ -93,7 +94,8 @@ class UsuarioRepository {
                 }]
             }],
 
-            order: [['divisao', 'ASC']]
+            order: [['divisao', 'ASC']],
+            raw:true
         });
 
         return treinosUsuario;

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/fichas.css">
+    <title>BestFit - Fichas</title>
+</head>
+<body>
+
+    <header class="header-fichas">
+        <h1><%= edicao ? 'Fichas' : 'Ficha selecionado' %></h1>
+        <div class="status-icon">
+            <span>IMG: Sair</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <% const grupos = ['Grupo A (peito e ombro)', 'Grupo B (costas tríceps)', 'Grupo C (perna inferiores)']; %>
+        
+        <% grupos.forEach((grupo, index) => { %>
+            <div class="ficha-card">
+                <div class="ficha-info">
+                    <h3><%= grupo %></h3>
+                </div>
+                
+                <div class="status-icon">
+                    <% if (edicao) { %>
+                        <% if (index === 2) { %>
+                            <a href="/treinosSelecao" > <span class="icon-delete">IMG: [ - ]</span> </a>
+                        <% } else { %>
+                            <a href="/treinosSelecao" >  <span class="icon-check">IMG: [ V ]</span> </a>
+                        <% } %>
+                    <% } else { %>
+                        <a href="/treinosSelecao" >  <span class="icon-arrow">IMG: [ -> ]</span> </a>
+                    <% } %>
+                </div>
+            </div>
+        <% }) %>
+    </main>
+
+    <% if (edicao) { %>
+        <div class="btn-float">
+            <a href="/treinosEdicao"> <span>IMG: Ed</span></a>
+        </div>
+    <% } %>
+
+    <nav class="bottom-nav">
+        <% if (!edicao) { %>
+            <div class="nav-item-circle" style="width: 40px; height: 40px; position: absolute; left: 20px;">
+                <span>IMG: < </span>
+            </div>
+        <% } %>
+
+        <div class="nav-item-circle" style="width: 65px; height: 65px; border: 4px solid var(--bg-dark); margin-top: -40px;">
+            <span>IMG: Home</span>
+        </div>
+    </nav>
+
+</body>
+</html>
