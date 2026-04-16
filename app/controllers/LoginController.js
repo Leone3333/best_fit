@@ -1,23 +1,19 @@
-const UsuarioRepositiry = require("../repository/UsuarioRepository");
+const UsuarioRepository = require("../repository/UsuarioRepository");
 
 class LoginController {
 
     static async login(emailPost, senhaPost) {
         try {
-            let login = await UsuarioRepositiry.findUserEmail(emailPost, senhaPost);
-            console.log("Consulta realizada");
+            let user = await UsuarioRepository.findUserEmail(emailPost, senhaPost);
+            console.log("Consulta realizada " + user.nome);
 
-            let session = false;
-
-            if (login.length > 0) {
-                session = true;
-            }
-
-            if (session) {
-                return login;
+            if (user) {
+             
+                return user
             }else{
-                return session;
+                return false
             }
+
         } catch (error) {
             console.log("Erro na consulta");
             console.log(error);
