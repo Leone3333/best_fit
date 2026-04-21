@@ -6,9 +6,9 @@ var logger = require('morgan');
 const session = require('express-session');
 
 
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var fichasRouter = require('./routes/fichas');
 
 var app = express();
 
@@ -26,28 +26,29 @@ app.use(session({
   secret: 'seu_segredo_aqui', // Uma frase aleatória para criptografar o ID da sessão
   resave: false,               // Não salva a sessão se não houver mudanças
   saveUninitialized: false,    // Não cria sessão para quem não está logado
-  cookie: { 
+  cookie: {
     maxAge: 1000 * 60 * 60 * 24 // Sessão dura 24 horas
   }
 }));
 
 
-app.use((req,res,next) => {
+app.use((req, res, next) => {
   res.locals.usuario = req.session.usuarioLogado || null;
   next();
 });
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/fichas', fichasRouter);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -58,3 +59,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+

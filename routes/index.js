@@ -55,9 +55,6 @@ router.post('/home', async (req, res, next) => {
 
 });
 
-router.get('/fichas', function (req, res, next) {
-  res.render('fichas', { edicao: true });
-});
 
 router.get('/treinosEdicao', function (req, res, next) {
   res.render('treinosEdicao');

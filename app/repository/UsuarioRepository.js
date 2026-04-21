@@ -86,7 +86,7 @@ class UsuarioRepository {
             include: [{
                 model: models.treino,
                 as: 'treinos',
-                attributes: ['idtreino', 'serie', 'carga', 'repeticoes', ['status', 'status_ficha']],
+                attributes: ['idtreino', 'serie', 'carga', 'repeticoes', ['status', 'status_treino']],
                 include: [{
                     model: models.exercicio,
                     as: 'exercicio',
