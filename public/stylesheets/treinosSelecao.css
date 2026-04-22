@@ -92,3 +92,20 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.icon-label {
+    color: #333;
+    font-size: 0.6rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.material-symbols-outlined {
+
+font-size: 32px;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 30
+}

@@ -28,14 +28,15 @@ class FichaRepository {
     }
     
     // retorna todos os treinos associados ao idFicha
-    static async getTreinosFicha(idFicha){
-        const fichas = await models.ficha.findAll({
+    static async getTreinosFicha(idFicha,idUsuario){
+        const trenos = await models.ficha.findAll({
             where:{
-                idficha: idFicha
+                idficha: idFicha,
+                idusuarioFK: idUsuario
             },
             include:[{
                 model: models.treino,
-                as: "treino",
+                as: "treinos",
                 attributes: ['idtreino', 'serie', 'carga', 'repeticoes', ['status', 'status_treino']],
                 include:[{
                     model: models.exercicio,
@@ -43,10 +44,9 @@ class FichaRepository {
                     attributes: [['nome', 'exercicio_nome']]
                 }]
             }],
-            raw:true
         })
 
-        return fichas
+        return trenos.map(item => item.toJSON());
     }
 }
 

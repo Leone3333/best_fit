@@ -11,7 +11,7 @@ class FichaController {
             let treinosFicha = await this.resetForcedFicha(fichas)
 
             console.table(fichas);
-           
+
             return fichas
 
         } catch (error) {
@@ -39,6 +39,17 @@ class FichaController {
         return fichasConcluidas;
     };
 
+
+    static async visualizarTreinosFicha(req,idFicha) {
+        const idUsuario = req.session.usuarioLogado.id;
+        const fichaTreinos = await fichaRepository.getTreinosFicha(idFicha, idUsuario);
+
+        console.table(fichaTreinos);
+
+        return fichaTreinos
+    };
+
+
     static async checkFinishedFicha(idFicha) {
         const treinos = await fichaRepository.getTreinosFicha(idFicha);
 
@@ -50,7 +61,7 @@ class FichaController {
             return true;
         }
         return false;
-    }
+    };
 };
 
 module.exports = FichaController;
