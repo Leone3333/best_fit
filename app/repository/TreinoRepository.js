@@ -53,12 +53,11 @@ class TreinoRepository {
         const removeTreino = await models.treino.destroy({where: {idtreino:idTreino}})
 
         return removeTreino
-    }
+    }   
 
     static async getExerciciosFicha(idFicha){
         const exercicios = await models.treino.findAll({
             where: { idfichaFK: idFicha, },
-            atributes:[],
             include:[{
                 model:models.exercicio,
                 as:'exercicio',
@@ -68,7 +67,7 @@ class TreinoRepository {
             nest:true
         })
 
-        return exercicios
+        return exercicios.map(item => item.exercicio)
     }
 }
 

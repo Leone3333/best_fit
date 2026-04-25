@@ -1,12 +1,22 @@
-const fichaRepository = require("../repository/FichaRepository");
+const FichaRepository = require("../repository/FichaRepository");
 
 class FichaController {
 
+    static async fichaDados(idFicha){
+        try{
+            const ficha = await FichaRepository.getFichaId(idFicha)
+            console.log(ficha)
+            return ficha
+        }catch(error){
+            console.log("Erro ao buscar ficha repositorio")
+            console.log(error)
+        }
+    }
     static async visualizarFichas(req) {
         try {
 
             const idUsuario = req.session.usuarioLogado.id;
-            let fichas = await fichaRepository.getFichasUser(idUsuario)
+            let fichas = await FichaRepository.getFichasUser(idUsuario)
 
             let treinosFicha = await this.resetForcedFicha(fichas)
 
@@ -33,7 +43,7 @@ class FichaController {
         if (fichasConcluidas && fichas.length > 0) {
             console.log("Ciclo completo! Resetando fichas...");
             for (let ficha of fichas) {
-                await fichaRepository.updateStatusficha(ficha.idficha, 0);
+                await FichaRepository.updateStatusficha(ficha.idficha, 0);
             }
         }
         return fichasConcluidas;
@@ -42,7 +52,7 @@ class FichaController {
 
     static async visualizarTreinosFicha(req,idFicha) {
         const idUsuario = req.session.usuarioLogado.id;
-        const fichaTreinos = await fichaRepository.getTreinosFicha(idFicha, idUsuario);
+        const fichaTreinos = await FichaRepository.getTreinosFicha(idFicha, idUsuario);
 
         console.table(fichaTreinos[0].treinos);
 
@@ -51,7 +61,7 @@ class FichaController {
 
 
     static async checkFinishedFicha(idFicha) {
-        const treinos = await fichaRepository.getTreinosFicha(idFicha);
+        const treinos = await FichaRepository.getTreinosFicha(idFicha);
 
         // Verifica se TODOS os treinos possuem status != 0
         const todosTreinosFeitos = treinos.every(t => t.status_treino != 0);

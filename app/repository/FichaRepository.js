@@ -4,7 +4,15 @@ const initModels = require("../database/models/init-models")
 const models = initModels(sequelize)
 
 class FichaRepository {
+    
+    static async getFichaId(idFicha){
+        const ficha = await models.ficha.findOne({
+            where: {idficha:idFicha},
+            raw:true
+        })
 
+        return ficha
+    }
     // retorna todas fichas do usuario
     static async getFichasUser(idUsuario){
         const fichas = await models.ficha.findAll({

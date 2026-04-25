@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const auth = require('../middlewares/auth');
 const FichaController = require("../app/controllers/FichaController")
+const TreinoController = require("../app/controllers/TreinoController")
 
 router.get('/', auth, async (req, res, next) => {
 
@@ -27,12 +28,17 @@ router.get('/treinosSelecao', auth,async (req, res) => {
 });
 
 
-router.get('/treinosEdicao', (req, res) => {
+router.get('/treinosEdicao',auth,async (req, res) => {
   const idFichaRecebido = req.query.id; // Aqui está o ID que veio do clique!
+  
+  const fichaTreinos = await FichaController.visualizarTreinosFicha(req,idFichaRecebido)
+  const exerciciosFicha = await TreinoController.exerciciosFicha(idFichaRecebido)
 
   console.log("Editar ficha:", idFichaRecebido);
+  console.log("Ficha treinos:", fichaTreinos);
+  console.log("Exercicios da ficha:", exerciciosFicha);
 
-  res.render('treinosEdicao');
+  res.render('treinosEdicao', {fichaTreinos: fichaTreinos, exerciciosFicha:exerciciosFicha});
 
 });
 
