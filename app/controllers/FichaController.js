@@ -44,7 +44,7 @@ class FichaController {
         const idUsuario = req.session.usuarioLogado.id;
         const fichaTreinos = await fichaRepository.getTreinosFicha(idFicha, idUsuario);
 
-        console.table(fichaTreinos);
+        console.table(fichaTreinos[0].treinos);
 
         return fichaTreinos
     };
