@@ -73,6 +73,16 @@ body {
     display: flex;
     align-items: center;
 }
+/* Ícone de disket */
+.btn-update {
+    color: #2d6fbb;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
 
 /* Botão Flutuante de Adicionar (+) */
 .btn-add-float {

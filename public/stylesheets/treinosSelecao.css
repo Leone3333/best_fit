@@ -47,6 +47,10 @@ body {
     font-weight: bold;
 }
 
+.exercise-create{
+    margin-top: 10px;
+    border: var(--accent-green), solid, 2px,
+}
 /* Estilo dos Checks */
 .check-icon {
     width: 30px;

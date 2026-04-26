@@ -21,16 +21,22 @@ class TreinoRepository {
     }
 
     static async addTreino(idExercicio,serie,repeticao,carga,idficha) {
-        const newTreino = await models.treino.create({
-            idexercicioFK:idExercicio,
-            serie:serie,
-            repeticoes:repeticao,
-            carga:carga,
-            status:0,
-            idfichaFK:idficha
-        })
+        
+        try{
 
-        return newTreino
+            const newTreino = await models.treino.create({
+                idexercicioFK:idExercicio,
+                serie:serie,
+                repeticoes:repeticao,
+                carga:carga,
+                status:0,
+                idfichaFK:idficha
+            })
+            return newTreino
+        }catch(error){
+            console.log("Erro no repositorio treino " + error)
+        }
+            
     }
 
     static async updateTreino(idExercicio,serie,repeticao,carga,idTreino) {
