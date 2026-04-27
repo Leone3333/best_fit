@@ -32,7 +32,7 @@
     <main id="exercises">
 
         <%fichaTreinos[0].treinos.forEach(treino=> { %>
-            <div class="exercise-card">
+            <div class="exercise-card" data-id="<%= treino.idtreino %>">
 
 
                 <select name="exercicio_id" onchange="">
@@ -46,8 +46,8 @@
                 <div class="col-sm"><input type="text" value="<%=treino.serie%>"></div>
                 <div class="col-sm"><input type="text" value="<%=treino.repeticoes%>"></div>
                 <div class="col-sm"><input type="text" value="<%=treino.carga%>"></div>
-                <button class="btn-delete"> <span class="material-symbols-outlined" onclick="delete_treino()">delete</span></button>
-                <button class="btn-update"> <span class="material-symbols-outlined" onclick="update_treino()">save</span></button>
+                <button class="btn-delete"> <span class="material-symbols-outlined" onclick="delete_treino(this)">delete</span></button>
+                <button class="btn-update"> <span class="material-symbols-outlined" onclick="update_treino(this)">save</span></button>
             </div>
             <% }) %>
 

@@ -42,11 +42,11 @@ class TreinoController {
         }
     }
 
-    static async deleteTreino() {
+    static async deleteTreino(idTreino) {
         try {
             const deleteTreino = await TreinoRepository.removeTreino(idTreino)
 
-
+            return deleteTreino
         } catch (error) {
             console.log("Erro no controller treino: " + error)
         }

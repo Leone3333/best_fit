@@ -7,7 +7,6 @@ const TreinoController = require("../app/controllers/TreinoController")
 router.post('/add', auth,async(req,res) => {
     
     try{
-
         const { exercicio_id, serie, rep, carga, idFicha } = req.body;
         console.log("Dados recebidos para adicionar treino:", { exercicio_id, serie, rep, carga, idFicha });
         
@@ -22,6 +21,25 @@ router.post('/add', auth,async(req,res) => {
         res.status(500).json({ success: false, message: "Erro ao salvar" });
     }
 
+})
+
+router.post('/remove', auth,async (req,res) => {
+    try{
+        const {idTreino} = req.body;
+        console.log("ID do treino a ser removido:", idTreino);
+
+        const removeTreino = await TreinoController.deleteTreino(idTreino);
+
+        console.log(removeTreino);
+
+        res.status(201).json({
+            sucess:true,
+            message:"Treino removido",
+            data:removeTreino
+        })
+    }catch(error){
+        res.status(500).json({ success: false, message: "Erro ao remover treino" });
+    }
 })
 
 module.exports = router;

@@ -1,10 +1,25 @@
-let div_exercise_create = document.querySelector('.exercise-create');
+let div_exercise_create = document.querySelector('.exercise-create')
 
-console.log(div_exercise_create);
+const delete_treino = async (el) => {
+    try{
+        const card = el.closest('.exercise-card')
 
-const delete_treino = () => {
-    let btn_delete = document.querySelector(".btn-delete");
-    console.log(btn_delete)
+        const idTreino = card.dataset.id;
+        console.log("ID para deletar:", idTreino);
+
+        const response = await fetch('/treinos/remove', {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({idTreino: idTreino})
+        })
+        
+        if(response.ok){
+            console.log('chegou aqui')
+            card.remove()
+        }
+    }catch(error){
+        console.log('Erro na deleção treino: ' + error)
+    }
 }
 
 const update_treino = () => {
