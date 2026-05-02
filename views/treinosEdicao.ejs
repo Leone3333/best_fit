@@ -13,7 +13,8 @@
 <body>
 
     <header class="header-exercicios">
-        <h1>Ficha <%=fichaTreinos[0].divisao %></h1>
+        <h1>Ficha <%=fichaTreinos[0].divisao %>
+        </h1>
         <div class="status-icon">
             <span class="material-symbols-outlined" onclick="confirmarSair()">
                 exit_to_app
@@ -34,26 +35,28 @@
         <%fichaTreinos[0].treinos.forEach(treino=> { %>
             <div class="exercise-card" data-id="<%= treino.idtreino %>">
 
-
-                <select name="exercicio_id" onchange="">
-                    <% exerciciosFicha.forEach(ex=> { %>
-                        <option value="<%= ex.idexercicio %>">
-                            <%= ex.exercicio_nome %>
+                <select name="exercicio_id">
+                    <% exercicios.forEach(ex=> { %>
+                        <option value="<%= ex.idexercicio %>" <%=(treino.exercicio &&
+                            ex.idexercicio==treino.exercicio.idexercicio) ? 'selected' : '' %>>
+                            <%= ex.nome %>
                         </option>
                         <% }) %>
-                </select>
+                </select>   
 
-                <div class="col-sm"><input type="text" value="<%=treino.serie%>"></div>
-                <div class="col-sm"><input type="text" value="<%=treino.repeticoes%>"></div>
-                <div class="col-sm"><input type="text" value="<%=treino.carga%>"></div>
-                <button class="btn-delete"> <span class="material-symbols-outlined" onclick="delete_treino(this)">delete</span></button>
-                <button class="btn-update"> <span class="material-symbols-outlined" onclick="update_treino(this)">save</span></button>
+                <div id="col_serie" class="col-sm"><input type="text" value="<%=treino.serie%>"></div>
+                <div id="col_repeticao" class="col-sm"><input type="text" value="<%=treino.repeticoes%>"></div>
+                <div id="col_carga" class="col-sm"><input type="text" value="<%=treino.carga%>"></div>
+                <button class="btn-delete"> <span class="material-symbols-outlined"
+                        onclick="delete_treino(this)">delete</span></button>
+                <button class="btn-update"> <span class="material-symbols-outlined"
+                        onclick="update_treino(this)">save</span></button>
             </div>
             <% }) %>
 
-            <div class="exercise-create">
+                <div class="exercise-create">
 
-            </div>
+                </div>
                 <!-- 
          -->
     </main>
@@ -83,7 +86,7 @@
 
 <script>
     // Converte os dados do EJS para um objeto JS real no navegador
-    const exerciciosDisponiveis = <%- JSON.stringify(exerciciosFicha) %>;
+    const exerciciosDisponiveis = <%- JSON.stringify(exercicios) %>;
 </script>
 
 <script src="/javascripts/fichaEdicao.js"></script>

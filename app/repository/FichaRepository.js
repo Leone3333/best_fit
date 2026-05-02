@@ -49,7 +49,7 @@ class FichaRepository {
                 include:[{
                     model: models.exercicio,
                     as: "exercicio",
-                    attributes: [['nome', 'exercicio_nome']]
+                    attributes: [['nome', 'exercicio_nome'], 'idexercicio']
                 }]
             }],
         })

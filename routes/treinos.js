@@ -42,4 +42,23 @@ router.post('/remove', auth,async (req,res) => {
     }
 })
 
+router.post('/update', auth, async (req,res) => {
+    try{
+        const {idExercicio,serie,repeticao,carga,idTreino} = req.body;
+        console.log("ID do treino a ser atualizado:", idTreino);
+
+        const updateTreino = await TreinoController.updateTreino(idExercicio,serie,repeticao,carga,idTreino);
+
+        console.log(updateTreino);
+
+        res.status(201).json({
+            sucess:true,
+            message:"Treino atualizado",
+            data:updateTreino
+        })
+    }catch(error){
+        res.status(500).json({sucess:false,message: "Erro ao atualizar treino"});
+    }
+});
+
 module.exports = router;

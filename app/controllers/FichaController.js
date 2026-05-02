@@ -5,7 +5,7 @@ class FichaController {
     static async fichaDados(idFicha){
         try{
             const ficha = await FichaRepository.getFichaId(idFicha)
-            console.log(ficha)
+            // console.log(ficha)
             return ficha
         }catch(error){
             console.log("Erro ao buscar ficha repositorio")
@@ -20,7 +20,7 @@ class FichaController {
 
             let treinosFicha = await this.resetForcedFicha(fichas)
 
-            console.table(fichas);
+            // console.table(fichas);
 
             return fichas
 
@@ -54,7 +54,7 @@ class FichaController {
         const idUsuario = req.session.usuarioLogado.id;
         const fichaTreinos = await FichaRepository.getTreinosFicha(idFicha, idUsuario);
 
-        console.table(fichaTreinos[0].treinos);
+        // console.table(fichaTreinos[0].treinos);
 
         return fichaTreinos
     };

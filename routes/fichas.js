@@ -32,13 +32,13 @@ router.get('/treinosEdicao',auth,async (req, res) => {
   const idFichaRecebido = req.query.id; // Aqui está o ID que veio do clique!
   
   const fichaTreinos = await FichaController.visualizarTreinosFicha(req,idFichaRecebido)
-  const exerciciosFicha = await TreinoController.exerciciosFicha(idFichaRecebido)
+  const exercicios = await TreinoController.getExercicios()
 
-  console.log("Editar ficha:", idFichaRecebido);
-  console.log("Ficha treinos:", fichaTreinos);
-  console.log("Exercicios da ficha:", exerciciosFicha);
+  // console.log("Editar ficha:", idFichaRecebido);
+  // console.log("Ficha treinos:", fichaTreinos[0].treinos);
+  console.log("Exercicios da ficha:", exercicios);
 
-  res.render('treinosEdicao', {fichaTreinos: fichaTreinos, exerciciosFicha:exerciciosFicha});
+  res.render('treinosEdicao', {fichaTreinos: fichaTreinos, exercicios:exercicios});
 
 });
 

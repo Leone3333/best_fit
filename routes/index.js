@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const auth = require('../middlewares/auth');
 const LoginController = require("../app/controllers/LoginController")
 
 /* GET home page. */
@@ -23,6 +24,7 @@ router.get('/logout', function (req, res, next) {
     res.redirect('/'); 
   });
 });
+
 
 
 router.post('/home', async (req, res, next) => {
@@ -54,7 +56,9 @@ router.post('/home', async (req, res, next) => {
   }
 
 });
-
+router.get('/home', auth, async (req,res,next) => {
+    res.render('home', { usuario: req.session.usuarioLogado });
+});
 
 router.get('/treinosEdicao', function (req, res, next) {
   res.render('treinosEdicao');

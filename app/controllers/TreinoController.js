@@ -1,4 +1,5 @@
 const TreinoRepository = require('../repository/TreinoRepository')
+const ExercicioRepository = require('../repository/ExercicioRepository')
 
 class TreinoController {
 
@@ -6,7 +7,7 @@ class TreinoController {
         try {
             const exercicios = await TreinoRepository.getExerciciosFicha(idFicha)
 
-            console.log(exercicios);
+            // console.log(exercicios);
 
             return exercicios
         } catch (error) {
@@ -47,6 +48,17 @@ class TreinoController {
             const deleteTreino = await TreinoRepository.removeTreino(idTreino)
 
             return deleteTreino
+        } catch (error) {
+            console.log("Erro no controller treino: " + error)
+        }
+
+    }
+
+    static async getExercicios() {
+        try {
+            const exercicios = await ExercicioRepository.getExercicios()
+
+            return exercicios
         } catch (error) {
             console.log("Erro no controller treino: " + error)
         }

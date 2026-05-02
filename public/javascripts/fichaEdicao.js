@@ -1,7 +1,9 @@
+// Card com dados do treino
 let div_exercise_create = document.querySelector('.exercise-create')
 
+// Métodos que manioulam treinos existentes no bd
 const delete_treino = async (el) => {
-    try{
+    try {
         const card = el.closest('.exercise-card')
 
         const idTreino = card.dataset.id;
@@ -9,24 +11,51 @@ const delete_treino = async (el) => {
 
         const response = await fetch('/treinos/remove', {
             method: 'POST',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({idTreino: idTreino})
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({ idTreino: idTreino })
         })
-        
-        if(response.ok){
+
+        if (response.ok) {
             console.log('chegou aqui')
             card.remove()
         }
-    }catch(error){
+    } catch (error) {
         console.log('Erro na deleção treino: ' + error)
     }
 }
 
-const update_treino = () => {
-    let btn = document.querySelector(".btn-update");
-    console.log(btn)
+const update_treino = async (el) => {
+    try {
+        const card = el.closest('.exercise-card');
+
+        const idTreino = card.dataset.id;
+        console.log("ID para atualizar:", idTreino);
+
+        // Busca o INPUT que está dentro de cada DIV de coluna
+        // Usamos querySelector para procurar o 'input' dentro do ID da div
+        const serie = card.querySelector('#col_serie input').value;
+        const repeticao = card.querySelector('#col_repeticao input').value;
+        const carga = card.querySelector('#col_carga input').value;
+
+        // Para o SELECT, o .value pega o ID do exercício selecionado
+        const idExercicio = card.querySelector('select').value;
+
+        const response = await fetch('/treinos/update', {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({idExercicio:idExercicio,serie: serie,repeticao:repeticao,carga:carga,idTreino: idTreino})
+        })
+
+        if(response.ok){
+            console.log('chegou aqui')
+        }
+
+    } catch (error) {
+        console.log('Erro na atualização treino: ' + error)
+    }
 }
 
+// Métodos que manipulam uma ficha que vira a ser 1 novo treino no banco
 const add_treino = () => {
 
     const tempId = Date.now();
@@ -35,18 +64,18 @@ const add_treino = () => {
     let home_icon = document.querySelector('.home-icon')
 
     const options = exerciciosDisponiveis.map(ex => `
-        <option value="${ex.idexercicio}">${ex.exercicio_nome}</option>
+        <option value="${ex.idexercicio}">${ex.nome}</option>
     `).join('');
 
     // console.log(home_icon)
     const new_exercise_component = `
     <div class="exercise-card" id="card-${tempId}">
             <select name="exercicio_id">
-                ${exerciciosDisponiveis.map(ex => `<option value="${ex.idexercicio}">${ex.exercicio_nome}</option>`).join('')}
+                ${exerciciosDisponiveis.map(ex => `<option value="${ex.idexercicio}">${ex.nome}</option>`).join('')}
             </select>
-            <div class="col-sm"><input type="number" class="serie" placeholder="serie __"></div>
-            <div class="col-sm"><input type="number" class="rep" placeholder="rep __"></div>
-            <div class="col-sm"><input type="number" class="carga" placeholder="Carga __"></div>
+            <div class="col-sm"><input type="number" class="serie" placeholder="serie"></div>
+            <div class="col-sm"><input type="number" class="rep" placeholder="rep"></div>
+            <div class="col-sm"><input type="number" class="carga" placeholder="Carga"></div>
         
         <div class="actions">
         <button type="button" onclick="removerCard(${tempId})" class="btn-cancel">
@@ -59,7 +88,7 @@ const add_treino = () => {
             </div>
     </div> `;
 
-    div_exercise_create.insertAdjacentHTML('beforeend', new_exercise_component)
+    div_exercise_create.insertAdjacentHTML('beforeend', new_exercise_component);
 }
 
 
@@ -91,7 +120,7 @@ const salvarNovoTreino = async (id) => {
         if (response.ok) {
             alert("Treino salvo com sucesso!");
             // Opcional: transformar o card em "modo leitura" ou atualizar a página
-            window.location.reload()
+            window.location.reload();
         }
     } catch (error) {
         console.error("Erro ao salvar:", error);
