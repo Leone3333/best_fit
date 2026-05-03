@@ -8,6 +8,13 @@
     --danger-red: #ff5f5f;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
 body {
     background-color: var(--bg-dark);
     color: var(--text-white);
@@ -17,7 +24,7 @@ body {
 
 .header-fichas {
     background: var(--primary-gradient);
-    padding: 15px 20px;
+    padding: 20px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,7 +76,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 /* Bottom Nav (Reutilizado da Dashboard) */
@@ -85,23 +91,24 @@ body {
 }
 
 .nav-item-circle {
-    background: white;
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 40px; 
+    height: 40px;
+    position: absolute; 
+    left: 20px;
 }
 
 .icon-label {
-    color: #333;
-    font-size: 0.6rem;
+    font-size: 1.0rem;
     text-align: center;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .material-symbols-outlined {
 
-font-size: 32px;
+font-size: 34px;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,

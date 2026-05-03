@@ -7,6 +7,13 @@
     --danger-red: #d9534f;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
 body {
     background-color: var(--bg-dark);
     color: var(--text-white);
@@ -23,18 +30,27 @@ body {
     align-items: center;
 }
 
-/* Tabela de Cabeçalho */
-.table-header {
+
+/* Grid de Colunas */
+.table-header, .exercise-card {
     display: flex;
-    padding: 20px;
-    font-weight: bold;
-    font-size: 0.9rem;
+    align-items: center;
+    gap: 10px; /* Espaço entre cada coluna */
+    padding: 15px 25px;
+}
+
+/* Proporções das colunas */
+.col-ex { flex: 10; }      /* Exercício ganha mais espaço */
+.col-sm { flex: 2; }      /* Série, Rep e Carga dividem o espaço igual */
+.col-btns { width: 75px; display: flex; gap: 5px; } /* Espaço fixo para os dois botões */
+
+/* Ajuste dos inputs para não estourarem a coluna */
+.col-sm input, .col-ex select {
+    width: 100%;
     text-align: center;
 }
 
-/* Grid de Colunas */
-.col-ex { flex: 2; text-align: left; }
-.col-sm { flex: 1; }
+
 
 /* Card de Exercício */
 .exercise-card {
@@ -115,23 +131,20 @@ body {
 }
 
 .nav-circle {
-    background: white;
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .icon-label {
-    color: #333;
-    font-size: 0.6rem;
+    font-size: 1.0rem;
     text-align: center;
     font-weight: bold;
 }
 
 .material-symbols-outlined {
 
-font-size: 32px;
+font-size: 36px;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,

@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="/stylesheets/home.css">
-    
+
     <title>BestFit - Dashboard</title>
 </head>
 
@@ -16,9 +17,9 @@
         <h1>
             <% if(locals.usuario && usuario.nome) {%>
                 <%= usuario.nome %>
-                <% } else {%>
-                    Visitante
-                <%}%>
+                    <% } else {%>
+                        Visitante
+                        <%}%>
         </h1>
         <span class="material-symbols-outlined" onclick="confirmarSair()">
             exit_to_app
@@ -57,20 +58,18 @@
 
     <nav class="bottom-nav">
         <div class="nav-wrapper">
-            <div class="home-btn-circle">
-                <div class="icon-label">
-                    <span class="material-symbols-outlined">home</span>
-                </div>
+
+            <a style="text-decoration: none; color:inherit" href="/fichas">
+            <div class="icon-label">
+                    <span class="material-symbols-outlined" style="color:#fff">exercise</span>
+                <p>Treinos</p>
+                </a>
             </div>
 
-            <div class="gym-btn-circle">
-                <div class="icon-label">
-                    <a href="/fichas"><span class="material-symbols-outlined">exercise</span></a>
-                </div>
-            </div>
         </div>
     </nav>
 
 </body>
 <script src="/javascripts/logout.js"></script>
+
 </html>
