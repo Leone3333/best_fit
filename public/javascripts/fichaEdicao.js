@@ -1,10 +1,15 @@
 // Card com dados do treino
 let div_exercise_create = document.querySelector('.exercise-create')
+const btnAdd = document.querySelector(".btn-add-float");
+const btnExit = document.querySelector(".btn-exit-float");
+
+console.log(btnAdd)
+let currentTempId = null;
 
 // Métodos que manioulam treinos existentes no bd
 const delete_treino = async (el) => {
     try {
-        const card = el.closest('.exercise-card')
+        const card = el.closest('.exercise-row-card')
 
         const idTreino = card.dataset.id;
         console.log("ID para deletar:", idTreino);
@@ -26,27 +31,27 @@ const delete_treino = async (el) => {
 
 const update_treino = async (el) => {
     try {
-        const card = el.closest('.exercise-card');
+        const card = el.closest('.exercise-row-card');
 
         const idTreino = card.dataset.id;
         console.log("ID para atualizar:", idTreino);
 
         // Busca o INPUT que está dentro de cada DIV de coluna
         // Usamos querySelector para procurar o 'input' dentro do ID da div
-        const serie = card.querySelector('#col_serie input').value;
-        const repeticao = card.querySelector('#col_repeticao input').value;
-        const carga = card.querySelector('#col_carga input').value;
+        const serie = card.querySelector('.serie input').value;
+        const repeticao = card.querySelector('.rep input').value;
+        const carga = card.querySelector('.carga input').value;
 
         // Para o SELECT, o .value pega o ID do exercício selecionado
         const idExercicio = card.querySelector('select').value;
 
         const response = await fetch('/treinos/update', {
             method: 'POST',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({idExercicio:idExercicio,serie: serie,repeticao:repeticao,carga:carga,idTreino: idTreino})
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({ idExercicio: idExercicio, serie: serie, repeticao: repeticao, carga: carga, idTreino: idTreino })
         })
 
-        if(response.ok){
+        if (response.ok) {
             console.log('chegou aqui')
         }
 
@@ -58,10 +63,9 @@ const update_treino = async (el) => {
 // Métodos que manipulam uma ficha que vira a ser 1 novo treino no banco
 const add_treino = () => {
 
-    const tempId = Date.now();
-
-    let btn = document.querySelector(".btn-add-float");
-    let home_icon = document.querySelector('.home-icon')
+    console.log("ola")
+    if (currentTempId) return;
+    currentTempId = Date.now();
 
     const options = exerciciosDisponiveis.map(ex => `
         <option value="${ex.idexercicio}">${ex.nome}</option>
@@ -69,32 +73,44 @@ const add_treino = () => {
 
     // console.log(home_icon)
     const new_exercise_component = `
-    <div class="exercise-card" id="card-${tempId}">
-            <select name="exercicio_id">
-                ${exerciciosDisponiveis.map(ex => `<option value="${ex.idexercicio}">${ex.nome}</option>`).join('')}
-            </select>
-            <div class="col-sm"><input type="number" class="serie" placeholder="serie"></div>
-            <div class="col-sm"><input type="number" class="rep" placeholder="rep"></div>
-            <div class="col-sm"><input type="number" class="carga" placeholder="Carga"></div>
-        
-        <div class="actions">
-        <button type="button" onclick="removerCard(${tempId})" class="btn-cancel">
-            <span class="material-symbols-outlined">delete</span>
-        </button>
-        <button type="button" onclick="salvarNovoTreino(${tempId})" class="btn-save">
-            <span class="material-symbols-outlined">save</span>
-        </button>
-        
+        <div class="exercise-row-card" id="card-${currentTempId}">
+            <!-- Coluna do Exercício com a mesma classe do Header -->
+            <div class="cell col-ex">
+                <select name="exercicio_id">
+                    <option value="" disabled selected>Selecione...</option>
+                    ${exerciciosDisponiveis.map(ex => `<option value="${ex.idexercicio}">${ex.nome}</option>`).join('')}
+                </select>
             </div>
-    </div> `;
 
-    div_exercise_create.insertAdjacentHTML('beforeend', new_exercise_component);
+            <!-- Colunas Numéricas -->
+            <div class="cell col-num"><input type="number" class="serie" placeholder="0"></div>
+            <div class="cell col-num"><input type="number" class="rep" placeholder="0"></div>
+            <div class="cell col-num"><input type="number" class="carga" placeholder="0"></div>
+
+        </div>`;
+
+        btnAdd.querySelector(".material-symbols-outlined").textContent = "check";
+
+        btnAdd.onclick = () => salvarNovoTreino(currentTempId);
+
+        btnExit.style.display = "flex"; 
+        btnExit.onclick = () => removerCard(currentTempId);
+    
+        div_exercise_create.insertAdjacentHTML('beforeend', new_exercise_component);
 }
 
 
 const removerCard = (id) => {
     const card = document.getElementById(`card-${id}`);
     if (card) card.remove();
+
+    // Resetar estado global
+    currentTempId = null;
+
+    btnAdd.querySelector(".material-symbols-outlined").textContent = "add";
+    btnAdd.onclick = add_treino;
+
+    btnExit.style.display = "none";
 }
 
 const salvarNovoTreino = async (id) => {
@@ -119,6 +135,8 @@ const salvarNovoTreino = async (id) => {
 
         if (response.ok) {
             alert("Treino salvo com sucesso!");
+            
+            currentTempId = null;
             // Opcional: transformar o card em "modo leitura" ou atualizar a página
             window.location.reload();
         }
@@ -126,3 +144,6 @@ const salvarNovoTreino = async (id) => {
         console.error("Erro ao salvar:", error);
     }
 }
+
+// No final do arquivo fichaEdicao.js
+btnAdd.onclick = add_treino;

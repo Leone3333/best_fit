@@ -18,7 +18,7 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-white);
     font-family: 'Segoe UI', sans-serif;
-    padding-bottom: 100px;
+    padding-bottom: 500px !important;
 }
 
 /* Header */
@@ -30,54 +30,88 @@ body {
     align-items: center;
 }
 
-
-/* Grid de Colunas */
-.table-header, .exercise-card {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Espaço entre cada coluna */
-    padding: 15px 25px;
-}
-
-/* Proporções das colunas */
-.col-ex { flex: 10; }      /* Exercício ganha mais espaço */
-.col-sm { flex: 2; }      /* Série, Rep e Carga dividem o espaço igual */
-.col-btns { width: 75px; display: flex; gap: 5px; } /* Espaço fixo para os dois botões */
-
-/* Ajuste dos inputs para não estourarem a coluna */
-.col-sm input, .col-ex select {
+/* Container Geral */
+.table-container {
     width: 100%;
-    text-align: center;
+    padding: 10px;
 }
 
+/* Linha de Títulos */
+.thead-row {
+    display: flex;
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 0.90rem;
+    color: #FFF;
+    text-transform: uppercase;
+}
 
-
-/* Card de Exercício */
-.exercise-card {
-    background-color: #fff;
-    margin: 0 15px 15px 15px;
-    padding: 12px;
-    border-radius: 10px;
+/* O "Card" que se comporta como linha */
+.exercise-row-card {
     display: flex;
     align-items: center;
-    gap: 5px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    background: #fff;
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    /* Garante que o select não seja cortado */
+    position: relative;
+    overflow: visible !important; 
+    
 }
 
-.exercise-card input {
+/* Definição das Larguras das Colunas (A MÁGICA DO ALINHAMENTO) */
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4px;
+}
+
+.col-ex { flex: 4; justify-content: flex-start; } /* Exercício ocupa o maior espaço */
+.col-num { flex: 1; }  /* Série, Rep e Carga são pequenas e iguais */
+.col-actions { width: 60px; gap: 3px; } /* Botões no final */
+
+/* Estilo dos inputs e select dentro da tabela */
+.exercise-row-card select, 
+.exercise-row-card input {
     width: 100%;
     border: none;
-    border-bottom: 1px solid #ccc;
-    padding: 5px 2px;
+    background: #f4f4f4;
+    border-radius: 6px;
+    padding: 8px 4px;
+    text-align: center;
     color: var(--accent-green);
     font-weight: bold;
-    font-size: 0.85rem;
-    text-align: center;
 }
 
-.exercise-card .col-ex input {
-    text-align: left;
+.exercise-row-card select {
+    width: 100%;
+    height: auto;
+    padding: 10px 12px;
+    background: #f4f4f4;
+    color: var(--accent-green);
+    font-weight: bold;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    
+    /* Remove qualquer estilização que trava o render do mobile */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    white-space: normal;       /* Permite que o texto pule linha */
+    word-wrap: break-word;     /* Quebra palavras longas se necessário */
+    overflow: visible;         /* Garante que o texto apareça */
+    text-overflow: clip;       /* Remove as reticências */
+    
+    /* 3. Garante que o texto fique alinhado */
+    text-align: left; 
+    display: flex;
+    
 }
+
 
 /* Ícone de Lixeira */
 .btn-delete {
@@ -117,6 +151,24 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     border: none;
 }
+
+.btn-exit-float {
+    position: fixed;
+    bottom: 90px;
+    left: 20px;
+    background: var(--primary-gradient);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: none;
+}
+
 
 /* Bottom Nav (Mesmo padrão anterior) */
 .bottom-nav {

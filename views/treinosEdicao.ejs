@@ -22,51 +22,46 @@
         </div>
     </header>
 
-    <div class="table-header">
-        <div class="col-ex">Exercicio</div>
-        <div class="col-sm">serie</div>
-        <div class="col-sm">rep</div>
-        <div class="col-sm">Carga</div>
-        <div class="col-btns"></div> <!-- ESSENCIAL para alinhar -->
+    <!-- Cabeçalho da "Tabela" -->
+<div class="table-container">
+    <div class="thead-row">
+        <div class="cell col-ex">Exercício</div>
+        <div class="cell col-num">Série</div>
+        <div class="cell col-num">Rep</div>
+        <div class="cell col-num">Carga</div>
+        <div class="cell col-actions"></div>
     </div>
 
-    <main id="exercises">
-
-        <%fichaTreinos[0].treinos.forEach(treino=> { %>
-            <div class="exercise-card" data-id="<%= treino.idtreino %>">
-                <div class="col-ex">
-
+    <main id="exercises-list">
+        <% fichaTreinos[0].treinos.forEach(treino => { %>
+            <div class="exercise-row-card" data-id="<%= treino.idtreino %>">
+                <div class="cell col-ex">
                     <select name="exercicio_id">
-                        <% exercicios.forEach(ex=> { %>
-                            <option value="<%= ex.idexercicio %>" <%=(treino.exercicio &&
-                                ex.idexercicio==treino.exercicio.idexercicio) ? 'selected' : '' %>>
+                        <% exercicios.forEach(ex => { %>
+                            <option value="<%= ex.idexercicio %>" <%= (treino.exercicio && ex.idexercicio == treino.exercicio.idexercicio) ? 'selected' : '' %>>
                                 <%= ex.nome %>
                             </option>
-                            <% }) %>
-                        </select>
-                    </div>
-
-                <div id="col_serie" class="col-sm"><input type="text" value="<%=treino.serie%>"></div>
-                <div id="col_repeticao" class="col-sm"><input type="text" value="<%=treino.repeticoes%>"></div>
-                <div id="col_carga" class="col-sm"><input type="text" value="<%=treino.carga%>"></div>
-
-                <div class="col-btns">
-                    <button class="btn-delete"> <span class="material-symbols-outlined"
-                            onclick="delete_treino(this)">delete</span></button>
-                    <button class="btn-update"> <span class="material-symbols-outlined"
-                            onclick="update_treino(this)">save</span></button>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="cell col-num serie"><input type="text" value="<%= treino.serie %>"></div>
+                <div class="cell col-num rep"><input type="text" value="<%= treino.repeticoes %>"></div>
+                <div class="cell col-num carga"><input type="text" value="<%= treino.carga %>"></div>
+                <div class="cell col-actions">
+                    <button class="btn-update" onclick="update_treino(this)"><span class="material-symbols-outlined">save</span></button>
+                    <button class="btn-delete" onclick="delete_treino(this)"><span class="material-symbols-outlined">delete</span></button>
                 </div>
             </div>
-            <% }) %>
+        <% }) %>
 
-                <div class="exercise-create">
-
-                </div>
-                <!-- 
-         -->
+        <div class="exercise-create">
+            
+        </div>
     </main>
+</div>
 
-    <button class="btn-add-float"> <span class="material-symbols-outlined" onclick="add_treino()">Add</span></button>
+    <button class="btn-add-float"> <span class="material-symbols-outlined">Add</span></button>
+    <button style="display:none" class="btn-exit-float"> <span class="material-symbols-outlined">Close</span></button>
 
     <nav class="bottom-nav">
         <div class="nav-circle" style="width: 45px; height: 45px; position: absolute; left: 20px;">
@@ -96,5 +91,4 @@
 </script>
 
 <script src="/javascripts/fichaEdicao.js"></script>
-
 </html>
