@@ -8,17 +8,24 @@
     --check-pending: #a8a332; /* Tom amarelado do último check */
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
 /* Reutilizando a base das telas anteriores */
 body {
     background-color: var(--bg-dark);
     color: white;
     font-family: 'Segoe UI', sans-serif;
-    padding-bottom: 110px;
+    padding-bottom: 400px;
 }
 
 .header-execucao {
     background: var(--primary-gradient);
-    padding: 15px 20px;
+    padding: 18px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -32,7 +39,7 @@ body {
 }
 
 .col-ex { flex: 2; text-align: left; }
-.col-sm { flex: 1; }
+.col-sm { flex: 1; text-align: center; }
 
 /* Card de Exercício em Execução */
 .exercise-card-run {
@@ -106,7 +113,7 @@ body {
 
 .material-symbols-outlined {
 
-font-size: 32px;
+font-size: 36px;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,

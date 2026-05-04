@@ -70,7 +70,7 @@ body {
 }
 
 .col-ex { flex: 4; justify-content: flex-start; } /* Exercício ocupa o maior espaço */
-.col-num { flex: 1; }  /* Série, Rep e Carga são pequenas e iguais */
+.col-num { flex: 1; justify-content: flex-end;}  /* Série, Rep e Carga são pequenas e iguais */
 .col-actions { width: 60px; gap: 3px; } /* Botões no final */
 
 /* Estilo dos inputs e select dentro da tabela */

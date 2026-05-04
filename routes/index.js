@@ -26,7 +26,6 @@ router.get('/logout', function (req, res, next) {
 });
 
 
-
 router.post('/home', async (req, res, next) => {
   const { email, password } = req.body;
 
