@@ -11,6 +11,13 @@ router.get('/', auth, async (req, res, next) => {
   res.render('fichas', { fichas: fichas, edicao: false });
 });
 
+router.post('/', auth, async (req, res, next) => {
+
+  const fichas = await FichaController.visualizarFichas(req)
+
+  res.render('fichas', { fichas: fichas, edicao: false });
+});
+
 router.get('/edit', auth, async (req, res, next) => {
 
   const fichas = await FichaController.visualizarFichas(req)

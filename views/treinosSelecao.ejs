@@ -31,7 +31,7 @@
 
     <main>
         <%fichaTreinos[0].treinos.forEach(treino=> { %>
-            <a style="text-decoration: none; color: inherit;" href="/visualizarTreino">
+            <a style="text-decoration: none; color: inherit;" href="/registroTreinos/visualizar/ficha/<%= fichaTreinos[0].idficha %>/treino/<%= treino.idtreino %>">
                 <div class="exercise-card-run">
                     <div class="col-ex"><%=treino.exercicio.exercicio_nome%></div>
                     <div class="col-sm"><%=treino.serie%></div>
@@ -52,7 +52,10 @@
                 </div>
                 </div>
 
-                <button class="btn-finish-all">Finalizar todos</button>
+                <form action="/fichas" method="post">
+                    <input type="text" style="display: none" value="<%=fichaTreinos[0].treinos%>"> 
+                    <button type="submit" class="btn-finish-all">Finalizar todos</button>
+                </form>
     </main>
 
     <nav class="bottom-nav">
@@ -64,7 +67,6 @@
             </div>
         </div>
 
-    
     </nav>
 
 </body>

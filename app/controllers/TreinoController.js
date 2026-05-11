@@ -3,6 +3,17 @@ const ExercicioRepository = require('../repository/ExercicioRepository')
 
 class TreinoController {
 
+    static async visualizarTreino(idTreino,idFichaFK){
+
+        try {
+            const treino = await TreinoRepository.getTreino(idTreino,idFichaFK)
+        
+            return treino
+        } catch (error) {
+            console.log("Erro na consulta em treino controller");
+            console.log(error);
+        }
+    }
     static async exerciciosFicha(idFicha) {
         try {
             const exercicios = await TreinoRepository.getExerciciosFicha(idFicha)
@@ -11,7 +22,7 @@ class TreinoController {
 
             return exercicios
         } catch (error) {
-            console.log("Erro na consulta em treino repositorio");
+            console.log("Erro na consulta em treino controller");
             console.log(error);
         }
     }
@@ -62,8 +73,30 @@ class TreinoController {
         } catch (error) {
             console.log("Erro no controller treino: " + error)
         }
-
     }
+
+    // este método seta status treino 1
+    static async concluirTreino(treino,idUsuarioFK) {
+        try {
+            const concluir = await TreinoRepository.updateStatusTreino(treino,idUsuarioFK)
+
+            return concluir
+        } catch (error) {
+            console.log("Erro no controller treino: " + error)
+        }
+    }
+    
+    // este método recebe os dados do treino a se registrar e salva no banco
+    static async registrarTreino(cargaUsada,rep_feitas,idUsuarioFK,idExercicioFK,idFichaFK,serie_feita) {
+        try {
+            // const concluir = await TreinoRepository.updateStatusTreino(treino,idUsuarioFK)
+
+            // return concluir
+        } catch (error) {
+            console.log("Erro no controller treino: " + error)
+        }
+    }
+
 }
 
 module.exports = TreinoController

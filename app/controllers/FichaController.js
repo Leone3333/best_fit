@@ -18,7 +18,7 @@ class FichaController {
             const idUsuario = req.session.usuarioLogado.id;
             let fichas = await FichaRepository.getFichasUser(idUsuario)
 
-            let treinosFicha = await this.resetForcedFicha(fichas)
+            let fichasConcluidas = await this.resetForcedFicha(fichas)
 
             // console.table(fichas);
 
@@ -30,6 +30,7 @@ class FichaController {
         };
     };
 
+    // reseta todas as fichas para 0 caso todas tenha status 1 irei adicionar os treinos tambem
     static async resetForcedFicha(fichas) {
         let fichasConcluidas = true;
 
@@ -43,13 +44,14 @@ class FichaController {
         if (fichasConcluidas && fichas.length > 0) {
             console.log("Ciclo completo! Resetando fichas...");
             for (let ficha of fichas) {
+                
                 await FichaRepository.updateStatusficha(ficha.idficha, 0);
             }
         }
         return fichasConcluidas;
     };
 
-
+    // envia todas os treinos de 1 idficha especifico
     static async visualizarTreinosFicha(req,idFicha) {
         const idUsuario = req.session.usuarioLogado.id;
         const fichaTreinos = await FichaRepository.getTreinosFicha(idFicha, idUsuario);
@@ -60,6 +62,7 @@ class FichaController {
     };
 
 
+    // verifica se todos treinos da ficha são 1 se sim seta o status da ficha para 1
     static async checkFinishedFicha(idFicha) {
         const treinos = await FichaRepository.getTreinosFicha(idFicha);
 

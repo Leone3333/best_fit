@@ -1,23 +1,24 @@
 const sequelize = require('../database/conection')
 const initModels = require("../database/models/init-models")
 
+const repositoryHistorico = require('../repository/HistoricoTreinoRepository')
+
 const models = initModels(sequelize)
 
 class TreinoRepository {
-
-    static async getTreino(idTreino, idUsuario) {
+    static async getTreino(idTreino, idFicha) {
         const treino = await models.treino.findOne({
-            where: { idtreino: idTreino, idusuarioFK: idUsuario },
+            where: { idtreino: idTreino, idfichaFK: idFicha },
         
             include:[{
                 model:models.exercicio,
                 as:'exercicio',
                 attributes: [['nome', 'exercicio_nome'],['imagem','imagem_exercicio']]
             }],
-            raw:true
+            raw:true,nest:true
         })
 
-        return treino
+        return treino 
     }
 
     static async addTreino(idExercicio,serie,repeticao,carga,idficha) {
@@ -74,6 +75,18 @@ class TreinoRepository {
         })
 
         return exercicios.map(item => item.exercicio)
+    }
+
+    static async updateStatusTreino(treino,idUsuarioFK){
+        const newStatusTreino = await models.treino.update({
+            status: 1
+        }, 
+        {
+            where:{idtreino:treino.idTreino}
+        }
+        )
+
+        return newStatusTreino
     }
 }
 

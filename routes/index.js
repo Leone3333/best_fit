@@ -56,19 +56,18 @@ router.post('/home', async (req, res, next) => {
   }
 
 });
+
 router.get('/home', auth, async (req,res,next) => {
     res.render('home', { usuario: req.session.usuarioLogado });
 });
 
-router.get('/treinosEdicao', function (req, res, next) {
-  res.render('treinosEdicao');
-});
+// router.get('/treinosEdicao', function (req, res, next) {
+//   res.render('treinosEdicao');
+// });
 
-router.get('/treinosSelecao', function (req, res, next) {
-  res.render('treinosSelecao');
-});
+// router.get('/treinosSelecao', function (req, res, next) {
+//   res.render('treinosSelecao');
+// });
 
-router.get('/visualizarTreino', function (req, res, next) {
-  res.render('visualizarTreino');
-});
+
 module.exports = router;

@@ -61,4 +61,10 @@ router.post('/update', auth, async (req,res) => {
     }
 });
 
+router.post('/updateTodosTreinos', auth, async (req, res, next) => {
+  
+    res.redirect('/fichas');
+});
+
+
 module.exports = router;
