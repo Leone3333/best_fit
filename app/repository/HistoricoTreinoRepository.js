@@ -7,15 +7,16 @@ class HistoricoTreinoRepository{
     static async addHistoricoTreino(cargaUsada,rep_feitas,idUsuarioFK,idExercicioFK,idFichaFK,serie_feita) {
         
         try{
-            const newHistoricoTreino = await models.treino.create({
+            const newHistoricoTreino = await models.historico_treino.create({
                 carga_usada:cargaUsada,
                 rep_feitas:rep_feitas,
-                data_conclusao: Date.new(),
+                data_conclusao: new Date(),
                 idusuarioFK:idUsuarioFK,    
                 idexercicioFK:idExercicioFK,
-                idfichaFK:idFichaFKs,
+                idfichaFK:idFichaFK,
                 serie_feita:serie_feita
             })
+            console.log("historico adicionado")
             return newHistoricoTreino
         }catch(error){
             console.log("Erro no repositorio treino " + error)

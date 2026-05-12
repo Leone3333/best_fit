@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const auth = require('../middlewares/auth');
 const TreinoController = require("../app/controllers/TreinoController")
+const RegistroTreinoController = require("../app/controllers/RegistroTreinoController")
 
 
 router.get('/visualizar/ficha/:idFicha/treino/:idTreino', auth, async (req, res, next) => {
@@ -14,23 +15,39 @@ router.get('/visualizar/ficha/:idFicha/treino/:idTreino', auth, async (req, res,
 });
 
 
-// router.post('/add', auth,async(req,res) => {
+router.post('/', auth,async(req,res) => {
     
-//     try{
-//         const { exercicio_id, serie, rep, carga, idFicha } = req.body;
-//         console.log("Dados recebidos para adicionar treino:", { exercicio_id, serie, rep, carga, idFicha });
+    try{
+        console.log(req.body);
+        const { idTreino, idFichaFK, idExercicioFK, serie, rep, carga } = req.body;
         
-        
-//         const newTreino = await TreinoController.createTreino(exercicio_id, serie, rep, carga, idFicha)
-//         res.status(201).json({ 
-//             success: true, 
-//             message: "Treino adicionado!",
-//             data: newTreino     
-//         });
-//     }catch(error){
-//         res.status(500).json({ success: false, message: "Erro ao salvar" });
-//     }
+        if (!req.session.usuarioLogado) {
+            return res.status(401).json({ success: false, message: "Sessão expirada. Faça login novamente." });
+        }else{
+            console.log(req.session.usuarioLogado)
+        }
 
-// })
+        const usuarioId = req.session.usuarioLogado.id;
 
-module.exports = router; // Certifique-se de que exportou o objeto router
+        const registrarTreino = await RegistroTreinoController.registrarTreino(idTreino, 
+            carga, 
+            rep,
+            usuarioId,
+            idExercicioFK,
+            idFichaFK,
+            serie)
+            
+        console.log("Dados para registrar treino: " + registrarTreino)
+
+        res.status(201).json({ 
+            success: true, 
+            message: "Treino registrado!",
+            data: registrarTreino     
+        });
+    }catch(error){
+        res.status(500).json({ success: false, message: "Erro ao salvar" });
+    }
+
+})
+
+module.exports = router; 

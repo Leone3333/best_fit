@@ -29,16 +29,16 @@
             <div class="control-item">
                 <span class="control-label">Series realziadas</span>
                 <div class="control-data">
-                    <button class="btn-adjust">-</button>
+                    <button class="btn-adjust" onclick="alterarValor(-1)">-</button>
                     <span id="serie-value">
                         <%=treinoSelecionado.serie%>
                     </span>
-                    <button class="btn-adjust">+</button>
+                    <button class="btn-adjust" onclick="alterarValor(1)">+</button>
                 </div>
             </div>
 
             <div class="control-item">
-                <span class="control-label">Repetições realizadas </span>
+                <span class="control-label">Repetições realizadas</span>
                 <div class="control-data">
                     <div class="rep-selector">
                         <input type="number" class="input-underline" placeholder="<%=treinoSelecionado.repeticoes%>">
@@ -56,23 +56,13 @@
         </section>
 
         <section class="actions-section">
-            <button class="btn-action btn-cancel">Cancelar</button>
-            <button class="btn-action btn-finish">Finalizar</button>
+            <button onclick="history.back()" class="btn-action btn-cancel">Cancelar</button>
+            <button onclick="finalizarTreino()" class="btn-action btn-finish">Finalizar</button>
         </section>
 
     </main>
 
     <nav class="bottom-nav">
-        <div class="nav-circle-item" style="width: 45px; height: 45px; position: absolute; left: 20px;">
-            <div class="icon-label">
-
-                <button onclick="history.back()"
-                    style="background: none; border: none; color: inherit; cursor: pointer; padding: 0;">
-                    <span class="material-symbols-outlined">arrow_back</span>
-                </button>
-            </div>
-        </div>
-
 
         <a href="/home" style="text-decoration: none; color: inherit;">
             <div class="icon-label">
@@ -83,5 +73,13 @@
     </nav>
 
 </body>
+<script>
+    const dadosIniciais = {
+        idTreino: "<%= treinoSelecionado.idtreino %>",
+        idFichaFK: "<%= treinoSelecionado.idfichaFK %>",
+        idExercicioFK: "<%= treinoSelecionado.idexercicioFK %>"
+    };
+</script>
+<script src="/javascripts/registroTreino.js"></script>
 
 </html>

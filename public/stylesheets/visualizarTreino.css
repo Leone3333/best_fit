@@ -127,14 +127,23 @@ header h1 {
     margin-bottom: 20px;
 }
 
+
+
 .btn-action {
+    display:flex;
+    justify-content:center;
+    align-items:center;
     border: none;
-    padding: 12px 20px;
+    padding: 0px 20px;
+    padding-top: 0;
+    padding-bottom: 3px;
+    height:45px;
     border-radius: 12px;
     font-weight: bold;
     font-size: 1.1rem;
     cursor: pointer;
     min-width: 120px;
+    cursor:pointer
 }
 
 .btn-cancel {

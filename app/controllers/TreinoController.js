@@ -76,9 +76,9 @@ class TreinoController {
     }
 
     // este método seta status treino 1
-    static async concluirTreino(treino,idUsuarioFK) {
+    static async concluirTreino(idTreino,idUsuarioFK) {
         try {
-            const concluir = await TreinoRepository.updateStatusTreino(treino,idUsuarioFK)
+            const concluir = await TreinoRepository.updateStatusTreino(idTreino,idUsuarioFK)
 
             return concluir
         } catch (error) {
@@ -86,16 +86,7 @@ class TreinoController {
         }
     }
     
-    // este método recebe os dados do treino a se registrar e salva no banco
-    static async registrarTreino(cargaUsada,rep_feitas,idUsuarioFK,idExercicioFK,idFichaFK,serie_feita) {
-        try {
-            // const concluir = await TreinoRepository.updateStatusTreino(treino,idUsuarioFK)
-
-            // return concluir
-        } catch (error) {
-            console.log("Erro no controller treino: " + error)
-        }
-    }
+    
 
 }
 
