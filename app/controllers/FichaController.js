@@ -1,13 +1,14 @@
 const FichaRepository = require("../repository/FichaRepository");
+const TreinoRepository = require("../repository/TreinoRepository");
 
 class FichaController {
 
-    static async fichaDados(idFicha){
-        try{
+    static async fichaDados(idFicha) {
+        try {
             const ficha = await FichaRepository.getFichaId(idFicha)
             // console.log(ficha)
             return ficha
-        }catch(error){
+        } catch (error) {
             console.log("Erro ao buscar ficha repositorio")
             console.log(error)
         }
@@ -17,21 +18,24 @@ class FichaController {
 
             const idUsuario = req.session.usuarioLogado.id;
             let fichas = await FichaRepository.getFichasUser(idUsuario)
+            // console.log("Id do usuario: " + idUsuario)
+            console.log(fichas)
+            const resetar = await this.resetForcedFicha(fichas)
 
-            let fichasConcluidas = await this.resetForcedFicha(fichas)
-
-            // console.table(fichas);
-
+            console.log("Treinos da ficha: " + resetar);
             return fichas
 
         } catch (error) {
-            console.log("Erro na consulta");
+            console.log("Erro na consulta no controller");
             console.log(error);
         };
     };
 
     // reseta todas as fichas para 0 caso todas tenha status 1 irei adicionar os treinos tambem
     static async resetForcedFicha(fichas) {
+        
+    
+        /*
         let fichasConcluidas = true;
 
         for (let ficha of fichas) {
@@ -44,37 +48,26 @@ class FichaController {
         if (fichasConcluidas && fichas.length > 0) {
             console.log("Ciclo completo! Resetando fichas...");
             for (let ficha of fichas) {
-                
+                // for()
                 await FichaRepository.updateStatusficha(ficha.idficha, 0);
             }
         }
         return fichasConcluidas;
+        */
     };
 
     // envia todas os treinos de 1 idficha especifico
-    static async visualizarTreinosFicha(req,idFicha) {
+    static async visualizarTreinosFicha(req, idFicha) {
         const idUsuario = req.session.usuarioLogado.id;
         const fichaTreinos = await FichaRepository.getTreinosFicha(idFicha, idUsuario);
 
-        // console.table(fichaTreinos[0].treinos);
+        // console.table("Treinos da ficha: "+ fichaTreinos);
 
         return fichaTreinos
     };
 
 
-    // verifica se todos treinos da ficha são 1 se sim seta o status da ficha para 1
-    static async checkFinishedFicha(idFicha) {
-        const treinos = await FichaRepository.getTreinosFicha(idFicha);
 
-        // Verifica se TODOS os treinos possuem status != 0
-        const todosTreinosFeitos = treinos.every(t => t.status_treino != 0);
-
-        if (todosTreinosFeitos) {
-            await fichaRepository.updateStatusficha(idFicha, 1);
-            return true;
-        }
-        return false;
-    };
 };
 
 module.exports = FichaController;

@@ -20,6 +20,7 @@ class TreinoRepository {
 
         return treino 
     }
+    
 
     static async addTreino(idExercicio,serie,repeticao,carga,idficha) {
         

@@ -41,9 +41,10 @@ router.get('/treinosEdicao',auth,async (req, res) => {
   const fichaTreinos = await FichaController.visualizarTreinosFicha(req,idFichaRecebido)
   const exercicios = await TreinoController.getExercicios()
 
-  // console.log("Editar ficha:", idFichaRecebido);
+  console.log("ID da ficha:", idFichaRecebido);
+  console.log("Treinos da ficha:", fichaTreinos);
   // console.log("Ficha treinos:", fichaTreinos[0].treinos);
-  console.log("Exercicios da ficha:", exercicios);
+  console.log("Exercicios da ficha: ", exercicios);
 
   res.render('treinosEdicao', {fichaTreinos: fichaTreinos, exercicios:exercicios});
 

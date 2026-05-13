@@ -4,49 +4,49 @@ const initModels = require("../database/models/init-models")
 const models = initModels(sequelize)
 
 class FichaRepository {
-    
-    static async getFichaId(idFicha){
+
+    static async getFichaId(idFicha) {
         const ficha = await models.ficha.findOne({
-            where: {idficha:idFicha},
-            raw:true
+            where: { idficha: idFicha },
+            raw: true
         })
 
         return ficha
     }
     // retorna todas fichas do usuario
-    static async getFichasUser(idUsuario){
+    static async getFichasUser(idUsuario) {
         const fichas = await models.ficha.findAll({
-            where:{
+            where: {
                 idusuarioFK: idUsuario
             },
-            raw:true
+            raw: true
         })
 
         return fichas
     }
-    
+
     // atualiza o status 
-    static async updateStatusficha(idFicha,newStatusFicha){
+    static async updateStatusficha(idFicha, newStatusFicha) {
         const ficha = await models.ficha.update(
             { status_ficha: newStatusFicha },
-            {where: { idficha: idFicha }}
+            { where: { idficha: idFicha } }
         )
 
         return ficha
     }
-    
+
     // retorna todos os treinos associados ao idFicha
-    static async getTreinosFicha(idFicha,idUsuario){
-        const trenos = await models.ficha.findAll({
-            where:{
+    static async getTreinosFicha(idFicha, idUsuario) {
+        const treinosFicha = await models.ficha.findAll({
+            where: {
                 idficha: idFicha,
                 idusuarioFK: idUsuario
             },
-            include:[{
+            include: [{
                 model: models.treino,
                 as: "treinos",
                 attributes: ['idtreino', 'serie', 'carga', 'repeticoes', ['status', 'status_treino']],
-                include:[{
+                include: [{
                     model: models.exercicio,
                     as: "exercicio",
                     attributes: [['nome', 'exercicio_nome'], 'idexercicio']
@@ -54,7 +54,8 @@ class FichaRepository {
             }],
         })
 
-        return trenos.map(item => item.toJSON());
+        // console.log(fichaTreinos)
+        return treinosFicha.map(item => item.toJSON());
     }
 }
 

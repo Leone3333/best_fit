@@ -65,7 +65,7 @@ const finalizarTreino = async () => {
             console.log(response)
             if (response.ok) {
                 // Em vez de history.back(), você pode redirecionar para a lista de treinos
-                history.back()
+                window.location.href = `/fichas/treinosSelecao?id=${dados.idFichaFK}`;
             }
         } catch (error) {
             alert("Erro ao salvar treino");
