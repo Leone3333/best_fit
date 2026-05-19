@@ -23,9 +23,9 @@ router.post('/add', auth,async(req,res) => {
 
 })
 
-router.post('/remove', auth,async (req,res) => {
+router.delete('/remove/:id', auth,async (req,res) => {
     try{
-        const {idTreino} = req.body;
+        const idTreino = req.params.id;
         console.log("ID do treino a ser removido:", idTreino);
 
         const removeTreino = await TreinoController.deleteTreino(idTreino);
@@ -42,9 +42,10 @@ router.post('/remove', auth,async (req,res) => {
     }
 })
 
-router.post('/update', auth, async (req,res) => {
+router.put('/update/:id', auth, async (req,res) => {
     try{
-        const {idExercicio,serie,repeticao,carga,idTreino} = req.body;
+        const idTreino = req.params.id
+        const {idExercicio,serie,repeticao,carga} = req.body;
         console.log("ID do treino a ser atualizado:", idTreino);
 
         const updateTreino = await TreinoController.updateTreino(idExercicio,serie,repeticao,carga,idTreino);
@@ -54,7 +55,7 @@ router.post('/update', auth, async (req,res) => {
         res.status(201).json({
             sucess:true,
             message:"Treino atualizado",
-            data:updateTreino
+            data:updateTreino 
         })
     }catch(error){
         res.status(500).json({sucess:false,message: "Erro ao atualizar treino"});

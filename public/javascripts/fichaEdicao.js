@@ -14,10 +14,8 @@ const delete_treino = async (el) => {
         const idTreino = card.dataset.id;
         console.log("ID para deletar:", idTreino);
 
-        const response = await fetch('/treinos/remove', {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({ idTreino: idTreino })
+        const response = await fetch(`/treinos/remove/${idTreino}`, {
+            method: 'DELETE',
         })
 
         if (response.ok) {
@@ -36,23 +34,28 @@ const update_treino = async (el) => {
         const idTreino = card.dataset.id;
         console.log("ID para atualizar:", idTreino);
 
-        // Busca o INPUT que está dentro de cada DIV de coluna
-        // Usamos querySelector para procurar o 'input' dentro do ID da div
-        const serie = card.querySelector('.serie input').value;
-        const repeticao = card.querySelector('.rep input').value;
-        const carga = card.querySelector('.carga input').value;
+        const serieInput = card.querySelector('.serie input');
+        const repInput = card.querySelector('.rep input');
+        const cargaInput = card.querySelector('.carga input');
+
+        const serie = Math.max(1, Number(serieInput.value));
+        const repeticao = Math.max(1, Number(repInput.value));
+        const carga = Math.max(0, Number(cargaInput.value));
 
         // Para o SELECT, o .value pega o ID do exercício selecionado
         const idExercicio = card.querySelector('select').value;
 
-        const response = await fetch('/treinos/update', {
-            method: 'POST',
+        const response = await fetch(`/treinos/update/${idTreino}`, {
+            method: 'PUT',
             headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({ idExercicio: idExercicio, serie: serie, repeticao: repeticao, carga: carga, idTreino: idTreino })
+            body: JSON.stringify({ idExercicio: idExercicio, serie: serie, repeticao: repeticao, carga: carga })
         })
 
         if (response.ok) {
             console.log('chegou aqui')
+            serieInput.value = serie;
+            repInput.value = repeticao;
+            cargaInput.value = carga;
         }
 
     } catch (error) {
@@ -89,14 +92,14 @@ const add_treino = () => {
 
         </div>`;
 
-        btnAdd.querySelector(".material-symbols-outlined").textContent = "check";
+    btnAdd.querySelector(".material-symbols-outlined").textContent = "check";
 
-        btnAdd.onclick = () => salvarNovoTreino(currentTempId);
+    btnAdd.onclick = () => salvarNovoTreino(currentTempId);
 
-        btnExit.style.display = "flex"; 
-        btnExit.onclick = () => removerCard(currentTempId);
-    
-        div_exercise_create.insertAdjacentHTML('beforeend', new_exercise_component);
+    btnExit.style.display = "flex";
+    btnExit.onclick = () => removerCard(currentTempId);
+
+    div_exercise_create.insertAdjacentHTML('beforeend', new_exercise_component);
 }
 
 
@@ -119,8 +122,8 @@ const salvarNovoTreino = async (id) => {
     // Captura os dados apenas deste card
     const dados = {
         exercicio_id: card.querySelector('select').value,
-        serie: card.querySelector('.serie').value || 0,
-        rep: card.querySelector('.rep').value || 0,
+        serie: card.querySelector('.serie').value || 1,
+        rep: card.querySelector('.rep').value || 1,
         carga: card.querySelector('.carga').value || 0,
         idFicha: new URLSearchParams(window.location.search).get('id') // Pega o ID da ficha da URL
     };
@@ -135,7 +138,7 @@ const salvarNovoTreino = async (id) => {
 
         if (response.ok) {
             alert("Treino salvo com sucesso!");
-            
+
             currentTempId = null;
             // Opcional: transformar o card em "modo leitura" ou atualizar a página
             window.location.reload();
