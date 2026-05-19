@@ -13,7 +13,8 @@
 <body>
 
     <header class="header-execucao">
-        <h1>Ficha <%=fichaTreinos[0].divisao %></h1>
+        <h1>Ficha <%=fichaTreinos[0].divisao %>
+        </h1>
         <div class="status-icon">
             <span class="material-symbols-outlined" onclick="confirmarSair()">
                 exit_to_app
@@ -31,12 +32,21 @@
 
     <main>
         <%fichaTreinos[0].treinos.forEach(treino=> { %>
-            <a style="text-decoration: none; color: inherit;" href="/registroTreinos/visualizar/ficha/<%= fichaTreinos[0].idficha %>/treino/<%= treino.idtreino %>">
+            <a style="text-decoration: none; color: inherit;"
+                href="/registroTreinos/visualizar/ficha/<%= fichaTreinos[0].idficha %>/treino/<%= treino.idtreino %>">
                 <div class="exercise-card-run">
-                    <div class="col-ex"><%=treino.exercicio.exercicio_nome%></div>
-                    <div class="col-sm"><%=treino.serie%></div>
-                    <div class="col-sm"><%=treino.repeticoes%></div>
-                    <div class="col-sm"><%=treino.carga%></div>
+                    <div class="col-ex">
+                        <%=treino.exercicio.exercicio_nome%>
+                    </div>
+                    <div class="col-sm">
+                        <%=treino.serie%>
+                    </div>
+                    <div class="col-sm">
+                        <%=treino.repeticoes%>
+                    </div>
+                    <div class="col-sm">
+                        <%=treino.carga%>
+                    </div>
                     <div class="check-icon check-done">
                         <%if(treino.status_treino !=0) {%>
                             <span class="material-symbols-outlined">check_box</span>
@@ -52,8 +62,9 @@
                 </div>
                 </div>
 
-                <form action="/fichas" method="post">
-                    <input type="text" style="display: none" value="<%=fichaTreinos[0].treinos%>"> 
+                <form action="/registroTreinos/completarTreinos" method="post">
+                    <input type="hidden" name="treinos" style="display: none" value="<%=JSON.stringify(fichaTreinos[0].treinos)%>">
+                    <input type="hidden" name="idFicha" style="display: none" value="<%=fichaTreinos[0].idficha%>">
                     <button type="submit" class="btn-finish-all">Finalizar todos</button>
                 </form>
     </main>
