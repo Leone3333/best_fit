@@ -78,9 +78,9 @@ class TreinoRepository {
         return exercicios.map(item => item.exercicio)
     }
 
-    static async updateStatusTreino(idTreino,idUsuarioFK){
+    static async updateStatusTreino(idTreino,idUsuarioFK,newStatus){
         const newStatusTreino = await models.treino.update({
-            status: 1
+            status: newStatus
         }, 
         {
             where:{idtreino:idTreino}

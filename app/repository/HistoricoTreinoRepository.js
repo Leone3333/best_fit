@@ -16,7 +16,7 @@ class HistoricoTreinoRepository{
                 idfichaFK:idFichaFK,
                 serie_feita:serie_feita
             })
-            console.log("historico adicionado")
+            console.log("historico adicionado", newHistoricoTreino)
             return newHistoricoTreino
         }catch(error){
             console.log("Erro no repositorio treino " + error)
