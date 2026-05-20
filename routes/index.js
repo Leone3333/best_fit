@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const auth = require('../middlewares/auth');
 const LoginController = require("../app/controllers/LoginController")
+const DashboardController = require("../app/controllers/DashboardController")
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -16,15 +17,14 @@ router.get('/logout', function (req, res, next) {
       console.log("Erro ao destruir sessão:", err);
       return res.redirect('/home'); // Ou para onde desejar em caso de erro
     }
-    
+
     // 2. Limpa o cookie do navegador (Opcional, mas boa prática)
-    res.clearCookie('connect.sid'); 
+    res.clearCookie('connect.sid');
 
     // 3. Redireciona para a rota de login (A URL vai mudar)
-    res.redirect('/'); 
+    res.redirect('/');
   });
 });
-
 
 
 router.post('/home', async (req, res, next) => {
@@ -32,7 +32,7 @@ router.post('/home', async (req, res, next) => {
 
   try {
     const user = await LoginController.login(email, password);
-    console.log(user);
+    // console.log(user);
 
     if (user) {
       req.session.usuarioLogado = {
@@ -40,11 +40,25 @@ router.post('/home', async (req, res, next) => {
         nome: user.nome,
       };
 
-      console.log("Sessão criada:", req.session.usuarioLogado);
+      // console.log("Sessão criada:", req.session.usuarioLogado);
 
-      req.session.save(() => {
+      req.session.save( async () => {
+        const dadosFiltro = await DashboardController.dashboardOpcoesfiltro(req.session.usuarioLogado.id);
 
-        res.render('home', { usuario: req.session.usuarioLogado });
+
+        // // Pega o que foi selecionado ou define o mês/ano atual como padrão
+        const hoje = new Date();
+        const anoAtual = parseInt(req.query.ano) || hoje.getFullYear();
+        const mesAtual = parseInt(req.query.mes) || (hoje.getMonth() + 1);
+
+        console.log(dadosFiltro)  
+        res.render('home', {
+          usuario: req.session.usuarioLogado, 
+          // tonelagem: dadosTonelagem ? dadosTonelagem.tonelagem_total : 0,
+          anoSelecionado : anoAtual,
+          mesSelecionado : mesAtual,
+          dadosFiltro 
+        });
       })
 
     } else {
@@ -57,8 +71,8 @@ router.post('/home', async (req, res, next) => {
 
 });
 
-router.get('/home', auth, async (req,res,next) => {
-    res.render('home', { usuario: req.session.usuarioLogado });
+router.get('/home', auth, async (req, res, next) => {
+  res.render('home', { usuario: req.session.usuarioLogado });
 });
 
 // router.get('/treinosEdicao', function (req, res, next) {
