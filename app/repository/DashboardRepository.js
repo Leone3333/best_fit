@@ -24,13 +24,34 @@ class DashboardRepository {
         return await models.vw_dashboard_tonelagem.findOne({
             where: {
                 idusuarioFK: idUsuario,
+                mes: mes,
                 ano: ano,
-                mes: mes
             },
             raw: true
         });
     }
 
+    static async getFrequenciaFichaPorMesAno(idUsuario,ano,mes){
+        return await models.vw_dashboard_frequencia_fichas.findAll({
+            where: {
+                idusuarioFK: idUsuario,
+                mes: mes,
+                ano: ano,
+            },
+            raw: true
+        })
+    }
+    
+    static async getTopTreinosPorMesAno(idUsuario,ano,mes){
+        return await models.vw_dashboard_top_cargas.findAll({
+            where: {
+                idusuarioFK: idUsuario,
+                mes: mes,
+                ano: ano,
+            },
+            raw: true
+        })
+    }
 
 }
 

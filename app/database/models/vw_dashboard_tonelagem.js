@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('vw_dashboard_tonelagem', {
     idusuarioFK: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      primaryKey: true 
     },
     mes: {
       type: DataTypes.INTEGER,

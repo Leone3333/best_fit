@@ -47,8 +47,7 @@ DB_PASS=
 DB_NAME=best_fit
 DB_DIALECT=mysql
 PORT=3000
-
---
+```
 
 ## 💻 Comandos do Node.js para Rodar o Sistema 
 

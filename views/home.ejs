@@ -32,34 +32,45 @@
         </section>
 
         <section class="filter-group">
-    <form action="/home" method="GET" style="display: inline-flex; gap: 10px;">
-        
-        <select name="mes" onchange="this.form.submit()">
-            <% 
-                // Filtra para exibir apenas os meses disponíveis para o ano que está ativo na tela
-                const mesesDoAno = dadosFiltro.filter(f => f.ano === anoSelecionado);
-                mesesDoAno.forEach(item => {
-            %>
-                <option value="<%= item.mes %>" <%= item.mes === mesSelecionado ? 'selected' : '' %>>
-                    <%= new Date(0, item.mes - 1).toLocaleString('pt-BR', { month: 'long' }) %>
-                </option>
-            <% }) %>
-        </select>
-        
-        <select name="ano" onchange="this.form.submit()">
-            <% 
-                // Cria a lista de anos únicos com base no que veio do banco
-                const anosUnicos = [...new Set(dadosFiltro.map(f => f.ano))];
-                anosUnicos.forEach(ano => {
-            %>
-                <option value="<%= ano %>" <%= ano === anoSelecionado ? 'selected' : '' %>><%= ano %></option>
-            <% }) %>
-        </select>
+            <form action="/home/filtrar" method="GET" style="display: inline-flex; gap: 10px;">
 
-        
-    </form>
-</section>
 
+                <select name="mes" onchange="this.form.submit()">
+                    <% const mesesDoAno=dadosFiltro.filter(f=> f.ano === anoSelecionado);
+
+                        if (mesesDoAno.length === 0) {
+                        %>
+                        <option value="<%= mesSelecionado %>" selected>
+                            <%= new Date(0, mesSelecionado - 1).toLocaleString('pt-BR', { month: 'long' }) %>
+                        </option>
+                        <% } else { mesesDoAno.forEach(item=> {
+                            %>
+                            <option value="<%= item.mes %>" <%=item.mes===mesSelecionado ? 'selected' : '' %>>
+                                <%= new Date(0, item.mes - 1).toLocaleString('pt-BR', { month: 'long' }) %>
+                            </option>
+                            <% }); } %>
+
+                </select>
+
+                <select name="ano" onchange="this.form.submit()">
+                    <% const anosUnicos=[...new Set(dadosFiltro.map(f=> f.ano))];
+
+                        if (anosUnicos.length === 0) {
+                        %>
+                        <option value="<%= anoSelecionado %>" selected>
+                            <%= anoSelecionado %>
+                        </option>
+                        <% } else { anosUnicos.forEach(ano=> {
+                            %>
+                            <option value="<%= ano %>" <%=ano===anoSelecionado ? 'selected' : '' %>>
+                                <%= ano %>
+                            </option>
+                            <% }); } %>
+
+                </select>
+
+            </form>
+        </section>
         <section class="toneladas-card">
             <h3>X Toneladas em setembro!!</h3>
         </section>

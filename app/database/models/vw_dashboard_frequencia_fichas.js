@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     idusuarioFK: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      primaryKey: true 
     },
     divisao: {
       type: DataTypes.CHAR(2),
