@@ -7,7 +7,6 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="/stylesheets/home.css">
-
     <title>BestFit - Dashboard</title>
 </head>
 
@@ -72,19 +71,35 @@
             </form>
         </section>
         <section class="toneladas-card">
-            <h3>X Toneladas em setembro!!</h3>
+            <% if (tonelagem>= 1000) { %>
+                <h3>
+                    <%= Math.floor(tonelagem / 1000) %> toneladas
+                        <% if (tonelagem % 1000> 0) { %>
+                            e <%= tonelagem % 1000 %> Kg
+                                <% } %>
+                                    em <%= new Date(0, mesSelecionado - 1).toLocaleString('pt-BR', { month: 'long' }) %>
+                                        de <%= anoSelecionado %>!!
+                </h3>
+                <% } else { %>
+                    <h3>
+                        <%= tonelagem || 0 %> Kg em <%= new Date(0, mesSelecionado - 1).toLocaleString('pt-BR', {
+                                month: 'long' }) %> de <%= anoSelecionado %>!!
+                    </h3>
+                    <% } %>
         </section>
+        <div class="dashboard-row" style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
 
-        <section class="charts-container">
-            <div id="chart-pizza" class="pizza-chart-placeholder">
+            <div class="chart-card" style="flex: 1; min-width: 300px; max-width: 450px;">
+                <h3>Uso de Fichas no Mês</h3>
+                <canvas id="graficoFichasPizza"></canvas>
             </div>
 
-            <div id="chart-lines" class="lines-chart-placeholder">
-                <div class="bar-line" style="width: 100%;"></div>
-                <div class="bar-line" style="width: 80%;"></div>
-                <div class="bar-line" style="width: 45%;"></div>
+            <div class="chart-card" style="flex: 1; min-width: 300px;">
+                <h3>Top 5 Melhores Exercícios</h3>
+                <canvas id="graficoTreinosBarras"></canvas>
             </div>
-        </section>
+
+        </div>
     </main>
 
     <nav class="bottom-nav">
@@ -102,5 +117,23 @@
 
 </body>
 <script src="/javascripts/logout.js"></script>
+<script>
+    // 1. CAPTURA DOS DADOS VINDOS DO EXPRESS/EJS
+    window.dadosFichaServer = <%- JSON.stringify(dadosFicha || []) %>;
+    window.dadosTreinosServer = <%- JSON.stringify(dadosTreinos || []) %>;
+
+
+    // 2. CONFIGURAÇÃO DO GRÁFICO DE PIZZA (Frequência de Fichas)
+    window.labelsFichas = window.dadosFichaServer.map(item => `Ficha ${item.divisao}`);
+    window.valoresFichas = window.dadosFichaServer.map(item => parseInt(item.sessoes_realizadas) || 0);
+
+    const top5Treinos = window.dadosTreinosServer.slice(0, 5);
+
+    // Uso do ?. evita erros caso a propriedade venha nula do banco
+    window.labelsExercicios = top5Treinos.map(item => item?.exercicio || 'Inominado');
+    window.valoresExercicios = top5Treinos.map(item => parseInt(item?.maior_carga) || 0);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/javascripts/graficos.js"></script>
 
 </html>

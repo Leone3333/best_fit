@@ -20,6 +20,7 @@ const delete_treino = async (el) => {
 
         if (response.ok) {
             console.log('chegou aqui')
+            alert(`Treino dremovido com sucesso!`)
             card.remove()
         }
     } catch (error) {
@@ -56,6 +57,7 @@ const update_treino = async (el) => {
             serieInput.value = serie;
             repInput.value = repeticao;
             cargaInput.value = carga;
+            alert(`Treino atualizado com sucesso!`)
         }
 
     } catch (error) {

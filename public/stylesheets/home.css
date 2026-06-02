@@ -102,40 +102,7 @@ body {
     padding: 0 10px;
 }
 
-.pizza-chart-placeholder {
-    width: 130px;
-    height: 130px;
-    border: 5px solid #fff;
-    border-radius: 50%;
-    position: relative;
-    overflow: hidden;
-}
 
-/* Desenho estático da "fatia" do gráfico */
-.pizza-chart-placeholder::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 50%;
-    border-left: 5px solid #fff;
-    border-bottom: 5px solid #fff;
-}
-
-.lines-chart-placeholder {
-    flex: 1;
-    margin-left: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-.bar-line {
-    height: 5px;
-    background-color: #fff;
-    border-radius: 10px;
-}
 
 /* --- Bottom Navigation --- */
 .bottom-nav {

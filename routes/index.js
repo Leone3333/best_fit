@@ -55,33 +55,35 @@ router.post('/home', async (req, res, next) => {
         const dadosFicha = await DashboardController.getTopFichas(req.session.usuarioLogado.id, anoAtual, mesAtual);
         const dadosTreinos = await DashboardController.getTopTreinos(req.session.usuarioLogado.id, anoAtual, mesAtual);
 
-        console.log(`Dados tonelagem: ${dadosTonelagem.tonelagem_total}`)
+        // console.log(`Dados tonelagem: ${dadosTonelagem.tonelagem_total}`)
 
-        if (dadosFicha && dadosFicha.length > 0) {
-          // Percorre cada objeto dentro do array de fichas
-          dadosFicha.forEach((ficha, index) => {
-            console.log(`Ficha [${index + 1}]: Divisão = ${ficha.divisao} | Sessões = ${ficha.sessoes_realizadas}`);
-          });
-        } else {
-          console.log("Nenhum registro de ficha foi retornado para este mês/ano.");
-        }
-        
+        // if (dadosFicha && dadosFicha.length > 0) {
+        //   // Percorre cada objeto dentro do array de fichas
+        //   dadosFicha.forEach((ficha, index) => {
+        //     console.log(`Ficha [${index + 1}]: Divisão = ${ficha.divisao} | Sessões = ${ficha.sessoes_realizadas}`);
+        //   });
+        // } else {
+        //   console.log("Nenhum registro de ficha foi retornado para este mês/ano.");
+        // }
 
-        console.log(`=================================`);
 
-        if (dadosTreinos && dadosTreinos.length > 0) {
-          // Percorre cada objeto dentro do array de treinos
-          dadosTreinos.forEach((treino, index) => {
-            console.log(`Treino [${index + 1}]: Exercicio = ${treino.exercicio} | Maior carga = ${treino.maior_carga}`);
-          });
-        } else {
-          console.log("Nenhum registro de ficha foi retornado para este mês/ano.");
-        }
+        // console.log(`=================================`);
+
+        // if (dadosTreinos && dadosTreinos.length > 0) {
+        //   // Percorre cada objeto dentro do array de treinos
+        //   dadosTreinos.forEach((treino, index) => {
+        //     console.log(`Treino [${index + 1}]: Exercicio = ${treino.exercicio} | Maior carga = ${treino.maior_carga}`);
+        //   });
+        // } else {
+        //   console.log("Nenhum registro de ficha foi retornado para este mês/ano.");
+        // }
 
 
         res.render('home', {
           usuario: req.session.usuarioLogado,
           tonelagem: dadosTonelagem ? dadosTonelagem.tonelagem_total : 0,
+          dadosFicha: dadosFicha,
+          dadosTreinos: dadosTreinos,
           anoSelecionado: anoAtual,
           mesSelecionado: mesAtual,
           dadosFiltro
@@ -101,16 +103,24 @@ router.post('/home', async (req, res, next) => {
 router.get('/home', auth, async (req, res, next) => {
 
   const dadosFiltro = await DashboardController.dashboardOpcoesfiltro(req.session.usuarioLogado.id);
+  // console.log(dadosFiltro)
 
   // // Pega o que foi selecionado ou define o mês/ano atual como padrão
   const hoje = new Date();
   const anoAtual = parseInt(req.query.ano) || hoje.getFullYear();
   const mesAtual = parseInt(req.query.mes) || (hoje.getMonth() + 1);
 
-  console.log(dadosFiltro)
+
+  const dadosTonelagem = await DashboardController.getTonelagem(req.session.usuarioLogado.id, anoAtual, mesAtual);
+  const dadosFicha = await DashboardController.getTopFichas(req.session.usuarioLogado.id, anoAtual, mesAtual);
+  const dadosTreinos = await DashboardController.getTopTreinos(req.session.usuarioLogado.id, anoAtual, mesAtual);
+
+
   res.render('home', {
     usuario: req.session.usuarioLogado,
-    // tonelagem: dadosTonelagem ? dadosTonelagem.tonelagem_total : 0,
+    tonelagem: dadosTonelagem ? dadosTonelagem.tonelagem_total : 0,
+    dadosFicha: dadosFicha,
+    dadosTreinos: dadosTreinos,
     anoSelecionado: anoAtual,
     mesSelecionado: mesAtual,
     dadosFiltro
@@ -129,10 +139,17 @@ router.get('/home/filtrar', auth, async (req, res, next) => {
     const dadosFiltro = await DashboardController.dashboardOpcoesfiltro(req.session.usuarioLogado.id);
 
 
+    const dadosTonelagem = await DashboardController.getTonelagem(req.session.usuarioLogado.id, anoSelecionado, mesSelecionado);
+    const dadosFicha = await DashboardController.getTopFichas(req.session.usuarioLogado.id, anoSelecionado, mesSelecionado);
+    const dadosTreinos = await DashboardController.getTopTreinos(req.session.usuarioLogado.id, anoSelecionado, mesSelecionado);
+
     // Renderiza a mesma página home, mas passando os dados novos e os anos/meses que foram clicados
     res.render('home', {
       usuario: req.session.usuarioLogado,
       dadosFiltro,
+      tonelagem: dadosTonelagem ? dadosTonelagem.tonelagem_total : 0,
+      dadosFicha: dadosFicha,
+      dadosTreinos: dadosTreinos,
       anoSelecionado, // Devolve para o EJS continuar com o ano certo marcado
       mesSelecionado  // Devolve para o EJS continuar com o mês certo marcado
     });
@@ -142,13 +159,6 @@ router.get('/home/filtrar', auth, async (req, res, next) => {
     res.redirect('/home'); // Em caso de erro, joga ele de volta para a home padrão
   }
 });
-// router.get('/treinosEdicao', function (req, res, next) {
-//   res.render('treinosEdicao');
-// });
-
-// router.get('/treinosSelecao', function (req, res, next) {
-//   res.render('treinosSelecao');
-// });
 
 
 module.exports = router;
