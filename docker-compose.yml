@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # SERVIÇO DO BANCO DE DADOS (MySQL)
+  database:
+    image: mysql:8.0
+    container_name: bestfit_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'bestfit'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes' # Diz ao MySQL do Docker para aceitar senha vazia para o root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-db:/docker-entrypoint-initdb.d
+    # HEALTHCHECK: Garante que o banco só seja considerado "pronto" 
+    # quando conseguir responder a um ping interno com sucesso
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # SERVIÇO DA APLICAÇÃO NODE.JS
+  app:
+    build: .
+    container_name: bestfit_app
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=database       # No Docker, o host obrigatoriamente é o nome do serviço do banco
+      - DB_USER=root
+      - DB_PASS=               # Senha vazia igual ao  local
+      - DB_NAME=bestfit
+      - NODE_ENV=production
+    depends_on:
+      database:
+        condition: service_healthy
+
+volumes:
+  mysql_data:

@@ -44,7 +44,7 @@ class FichaRepository {
             },
             include: [{
                 model: models.treino,
-                as: "treinos",
+                as: "treino",
                 attributes: ['idtreino', 'serie', 'carga', 'repeticoes', ['status', 'status_treino']],
                 include: [{
                     model: models.exercicio,

@@ -57,3 +57,8 @@ Abra o terminal do seu sistema ouo terminal do vsCode dentro da pasta do projeto
 2. npm run dev: Start o projeto 
 
 Apos ver a a mensagem de sucesso o servidor ira apresentar o link para abrir a aplicação 
+
+# Comandos uteis docker
+
+docker compose down -v
+docker compose up --build

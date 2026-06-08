@@ -31,7 +31,7 @@
     </div>
 
     <main>
-        <%fichaTreinos[0].treinos.forEach(treino=> { %>
+        <%fichaTreinos[0].treino.forEach(treino=> { %>
             <a style="text-decoration: none; color: inherit;"
                 href="/registroTreinos/visualizar/ficha/<%= fichaTreinos[0].idficha %>/treino/<%= treino.idtreino %>">
                 <div class="exercise-card-run">
@@ -63,7 +63,7 @@
                 </div>
 
                 <form action="/registroTreinos/completarTreinos" method="post">
-                    <input type="hidden" name="treinos" style="display: none" value="<%=JSON.stringify(fichaTreinos[0].treinos)%>">
+                    <input type="hidden" name="treinos" style="display: none" value="<%=JSON.stringify(fichaTreinos[0].treino)%>">
                     <input type="hidden" name="idFicha" style="display: none" value="<%=fichaTreinos[0].idficha%>">
                     <button type="submit" class="btn-finish-all">Finalizar todos</button>
                 </form>

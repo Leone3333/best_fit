@@ -56,7 +56,7 @@ router.post('/completarTreinos', auth, async (req, res) => {
         const usuarioId = req.session.usuarioLogado.id;
 
         for (let treino of treinosAtualizar) {
-            console.log("Treinos : ",treinosAtualizar)
+            // console.log("Treinos : ",treinosAtualizar)
             console.log("Treino atualziar: ",treino)
 
             const registrarTreino = await RegistroTreinoController.registrarTreino(treino.idtreino,
