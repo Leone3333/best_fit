@@ -62,3 +62,11 @@ Apos ver a a mensagem de sucesso o servidor ira apresentar o link para abrir a a
 
 docker compose down -v
 docker compose up --build
+
+# Senha digital ocean
+
+@G0v31418Leo
+
+## Tag
+
+bf-server
